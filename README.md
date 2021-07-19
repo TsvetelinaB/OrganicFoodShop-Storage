@@ -1,4 +1,4 @@
 # OrganicHealthyFoodShop
-ASP.NET Core project
+ASP.NET Core project for educational purposes
 
 
