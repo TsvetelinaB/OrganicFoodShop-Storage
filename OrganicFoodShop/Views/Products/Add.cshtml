@@ -1,0 +1,60 @@
+﻿@model AddProductFormModel
+
+@{ 
+    ViewData["Title"] = "Add Product";
+}
+<div class="row">
+    <div class="offset-lg-1 col-lg-7 offset-md-1 col-md-9 col-sm=6">
+        <h2 class="heading-margin text-center">Add Product</h2>
+
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Barcode"></label>
+                <input asp-for="Barcode" class="form-control">
+                <span asp-validation-for="Barcode" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceBuy"></label>
+                <input asp-for="PriceBuy" class="form-control" placeholder="0">
+                <span asp-validation-for="PriceBuy" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceSell"></label>
+                <input asp-for="PriceSell" class="form-control" placeholder="0">
+                <span asp-validation-for="PriceSell" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" class="form-control">
+                <span asp-validation-for="Quantity" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manufacturer"></label>
+                <input asp-for="Manufacturer" class="form-control" placeholder="Zoya, Smart Organic, Balev Bio, etc.">
+                <span asp-validation-for="Manufacturer" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageURL"></label>
+                <input asp-for="ImageURL" class="form-control">
+            </div>            
+            <div class="form-group">
+                <label asp-for="Category"> Category </label>
+                <select asp-for="Category" class="form-control" asp-items="@Html.GetEnumSelectList<Category>()">
+                    <option value="">Select Category</option>
+                </select>
+                <span asp-validation-for="Category" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-secondary float-none" type="submit" value="Add" />
+        </form>
+    </div>         
+</div>
