@@ -19,10 +19,9 @@ namespace OrganicFoodShop.Data.Models
         [MaxLength(ProductNameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
         [MaxLength(ProductNameMaxLength)]
         public string Barcode { get; set; }
-
-        public string NetWeightQuantity { get; set; }
 
         [Column(TypeName = "decimal(9, 3)")]
         public decimal PriceBuy { get; set; }
@@ -35,9 +34,7 @@ namespace OrganicFoodShop.Data.Models
         [Required]
         public string Manufacturer { get; set; }
 
-        public bool IsAvalable { get; set; }
-
-        public int CategoryId { get; set; }
+        //public bool IsAvalable { get; set; }       
 
         public Category Category{ get; set; }
 

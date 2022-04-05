@@ -10,12 +10,13 @@ namespace OrganicFoodShop.Data.Models
 {
     public enum Category
     {
-        Суперхрани = 1,
-        [Display(Name = "Зърнени, семена, ядки, плодове")] ЗърнениСеменаЯдкиПлодове = 2,
-        [Display(Name = "Масла, тахани")] МаслаТахани = 3,
-        [Display(Name = "Кафе, чай")] КафеЧай = 4,
-        [Display(Name = "Шоколади, десерти")] Шоколади,Десерти = 5,
-        Напитки = 6,
-        Козметика = 7
+        Superfoods = 1,
+        [Display(Name = "Grains, Seeds, Nuts, Fruits")] GrainsSeedsNutsFruits = 2,
+        [Display(Name = "Oils, Spreads, Jams")] OilsSpreadsJams = 3,
+        [Display(Name = "Coffee, Tea")] CoffeeTea = 4,
+        [Display(Name = "Chocolates, Desserts")] ChocolatesDesserts = 5,
+        [Display(Name = "Nutritional Supplements")] NutritionalSupplements = 6,
+        Drinks = 7,
+        Cosmetics = 8
     }
 }

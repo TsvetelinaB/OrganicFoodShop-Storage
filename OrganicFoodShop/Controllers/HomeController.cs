@@ -7,33 +7,44 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using OrganicFoodShop.Data;
 using OrganicFoodShop.Models;
+using OrganicFoodShop.Models.Products;
 
 namespace OrganicFoodShop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ShopDbContext data;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ShopDbContext data)
         {
-            _logger = logger;
+            this.data = data;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            var products = data
+                 .Products
+                 .OrderByDescending(p => p.Id)
+                 .Select(p => new ProductListingViewModel
+                 {
+                     Id = p.Id,
+                     Name = p.Name,
+                     PriceSell = p.PriceSell,
+                     ImageURL = p.ImageURL
+                 })
+                 .Take(3)
+                 .ToList();
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(products);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

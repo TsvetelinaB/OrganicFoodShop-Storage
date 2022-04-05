@@ -9,7 +9,7 @@ using OrganicFoodShop.Data.Models;
 
 namespace OrganicFoodShop.Data
 {
-    public class ShopDbContext : IdentityDbContext
+    public class ShopDbContext : IdentityDbContext<User>
     {
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
             : base(options)
@@ -19,18 +19,18 @@ namespace OrganicFoodShop.Data
 
         public DbSet<Product> Products { get; set; }
 
-      //  public DbSet<Category> Categories { get; init; }
+        //  public DbSet<Category> Categories { get; init; }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder
-        //        .Entity<Product>()
-        //        .HasOne(p => p.Category)
-        //        .WithMany(c => c.Products)
-        //        .HasForeignKey(p => p.CategoryId)
-        //        .OnDelete(DeleteBehavior.Restrict);
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //builder
+            //    .Entity<Product>()
+            //    .HasOne(p => p.Category)
+            //    .WithMany(c => c.Products)
+            //    .HasForeignKey(p => p.CategoryId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-        //    base.OnModelCreating(builder);
-        //}
+            base.OnModelCreating(builder);
+        }
     }
 }

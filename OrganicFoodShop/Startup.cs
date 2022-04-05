@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using OrganicFoodShop.Data;
+using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Infrastructure;
 
 namespace OrganicFoodShop
@@ -35,12 +36,17 @@ namespace OrganicFoodShop
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => 
-            
-            options.SignIn.RequireConfirmedAccount = true)
-                   .AddEntityFrameworkStores<ShopDbContext>();
-
-
+            services
+                .AddDefaultIdentity<User>(options =>
+                    {
+                        options.Password.RequireDigit = false;
+                        options.Password.RequireLowercase = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireUppercase = false;
+                        options.SignIn.RequireConfirmedAccount = false;
+                    })
+                //.AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ShopDbContext>();
 
             services.AddControllersWithViews();
         }
@@ -48,7 +54,7 @@ namespace OrganicFoodShop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.PrepareDatabase();
+            // app.PrepareDatabase();
 
             if (env.IsDevelopment())
             {
@@ -58,26 +64,27 @@ namespace OrganicFoodShop
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
                 //.MapControllerRoute(
-                    //name: "default",
-                    //pattern: "{controller=Home}/{action=Index}/{id?}");
+                //name: "default",
+                //pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-            });           
+            });
         }
     }
 }

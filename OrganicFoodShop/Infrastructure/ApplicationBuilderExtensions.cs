@@ -6,21 +6,18 @@ using OrganicFoodShop.Data;
 
 namespace OrganicFoodShop.Infrastructure
 {
-
-    // za da se migrira vseki pyt kato se vkliu4i prilojenieto, vmesto
-    // da se pishe v Startup tova, pravim klas s extension method
-    // app.ApplicationServices.GetService<ShopDbContext>().Database.Migrate();
-
     public static class ApplicationBuilderExtensions
     {
+
+        ///май не ми трябва този клас,не става миграция с това
         public static IApplicationBuilder PrepareDatabase(this IApplicationBuilder app)
         {
             //syzdavam scope za dbcontexta
-            using var scopedServices = app.ApplicationServices.CreateScope();
+            using var serviceScope = app.ApplicationServices.CreateScope();
 
-            var data = scopedServices.ServiceProvider.GetService<ShopDbContext>();
+            var db = serviceScope.ServiceProvider.GetRequiredService<ShopDbContext>();
 
-            data.Database.Migrate();
+            db.Database.Migrate();
 
             return app;
         }
