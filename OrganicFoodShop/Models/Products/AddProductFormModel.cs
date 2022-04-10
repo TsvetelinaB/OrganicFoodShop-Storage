@@ -15,10 +15,9 @@ namespace OrganicFoodShop.Models.Products
 {
     public class AddProductFormModel
     {
-        //public int Id { get; set; }
-
         [Required(ErrorMessage = "Field '{0}' is required")]
         [StringLength(ProductNameMaxLength, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols", MinimumLength = ProductNameMinLength)]
+        [Display(Name = "Product Name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Field '{0}' is required")]
@@ -26,7 +25,7 @@ namespace OrganicFoodShop.Models.Products
         public string Barcode { get; set; }
 
         [Required(ErrorMessage = "Field '{0}' is required")]
-       // [Range(0.000, 1_000_000.000, ErrorMessage = "Value of field '{0}' is not acceptable")]
+        [Range(0.000, 1_000_000.000, ErrorMessage = "Value of field '{0}' is not acceptable")]
         [Display(Name = "Price Buy")]
         public decimal PriceBuy { get; set; }
 
@@ -43,11 +42,15 @@ namespace OrganicFoodShop.Models.Products
         public string Manufacturer { get; set; }
 
         // public bool IsAvalable { get; set; }
+       
+        [Required(ErrorMessage = "Field '{0}' is required")]
+        [Display(Name = "Category")]
+        public int CategoryId { get; set; }
 
-        // public int CategoryId { get; set; }
-        
-        [Required(ErrorMessage = "Option in field '{0}' is required to be selected")]
-        public Category Category { get; set; }
+        public IEnumerable<CategoryViewModel> Categories { get; set; }  
+
+        //[Required(ErrorMessage = "Option in field '{0}' is required to be selected")]
+        //public Category Category { get; set; }
 
         [StringLength(ProductDescriptionMaxLength, ErrorMessage = "Field '{0}' must be {1} symbols maximum")]
         public string Description { get; set; }

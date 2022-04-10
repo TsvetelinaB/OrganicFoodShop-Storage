@@ -36,7 +36,9 @@ namespace OrganicFoodShop.Data.Models
 
         //public bool IsAvalable { get; set; }       
 
-        public Category Category{ get; set; }
+        public int CategoryId { get; set; }
+
+        public Category Category { get; set; }
 
         [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }

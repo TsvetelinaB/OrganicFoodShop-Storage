@@ -22,12 +22,12 @@ namespace OrganicFoodShop.Controllers
 
         public IActionResult Add()
         {
-            return this.View();
+            //return this.View();
 
-            //return this.View(new AddProductFormModel
-            //{
-            //    Categories = this.GetProductCategories()
-            //});
+            return this.View(new AddProductFormModel
+            {
+                Categories = this.GetProductCategories()
+            });
         }
 
         [HttpPost]
@@ -37,8 +37,9 @@ namespace OrganicFoodShop.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                //return this.View(product); 
-                return this.RedirectToAction(nameof(Add));
+                product.Categories = this.GetProductCategories();
+                return this.View(product); 
+                //return this.RedirectToAction(nameof(Add));
             }
 
             var productData = new Product
@@ -47,7 +48,7 @@ namespace OrganicFoodShop.Controllers
                 PriceBuy = product.PriceBuy,
                 PriceSell = product.PriceSell,
                 Barcode = product.Barcode,
-                Category = product.Category,
+              //  Category = product.Category,
                 Description = product.Description,
                 Manufacturer = product.Manufacturer,
                 Quantity = product.Quantity,
@@ -60,6 +61,18 @@ namespace OrganicFoodShop.Controllers
             // return this.View();
             // ВИНАГИ redirektvame, a ne vryshtam view, zashtoto user-a ako dade refresh na zqvkata, shte se izprati formata otnovo
             return this.RedirectToAction(nameof(All));
+        }
+
+        private IEnumerable<CategoryViewModel> GetProductCategories()
+        {
+            return this.data
+                    .Categories
+                    .Select(c => new CategoryViewModel
+                    {
+                        Id = c.Id,
+                        Name = c.Name
+                    })
+                    .ToList();
         }
 
         public IActionResult All()

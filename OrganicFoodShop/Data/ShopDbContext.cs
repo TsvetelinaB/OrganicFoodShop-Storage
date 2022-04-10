@@ -19,16 +19,16 @@ namespace OrganicFoodShop.Data
 
         public DbSet<Product> Products { get; set; }
 
-        //  public DbSet<Category> Categories { get; init; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder
-            //    .Entity<Product>()
-            //    .HasOne(p => p.Category)
-            //    .WithMany(c => c.Products)
-            //    .HasForeignKey(p => p.CategoryId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder
+                .Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId)   
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }
