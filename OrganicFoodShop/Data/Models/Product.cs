@@ -43,7 +43,6 @@ namespace OrganicFoodShop.Data.Models
         [MaxLength(ProductDescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Required]
         public string ImageURL { get; set; }
     }
 }

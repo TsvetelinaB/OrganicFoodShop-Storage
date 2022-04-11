@@ -48,6 +48,8 @@ namespace OrganicFoodShop
                 .AddEntityFrameworkStores<ShopDbContext>();
 
             services.AddControllersWithViews();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
