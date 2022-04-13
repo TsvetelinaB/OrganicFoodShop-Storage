@@ -4,13 +4,19 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div>
+    <h1 class="display-5 ">Welcome to "PoZdravi"!</h1>
+    <p class="lead"> Enjoy healthy and organic food!</p>
+</div>
+
+
 @{
     var firstProduct = Model.Any() ? Model[0] : null;
     var secondProduct = Model.Count > 1 ? Model[1] : null;
     var thirdProduct = Model.Count > 2 ? Model[2] : null;
 }
 
-<div class="jumbotron">
+<div class="jumbotron col-md-12 ">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="@firstProduct" class="active"></li>
@@ -18,7 +24,7 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="@thirdProduct"></li>
         </ol>
 
-        <div class="carousel-inner">
+        <div class="carousel-inner align-content-lg-center">
             @if (firstProduct != null)
             {
                 <div class="carousel-item active">

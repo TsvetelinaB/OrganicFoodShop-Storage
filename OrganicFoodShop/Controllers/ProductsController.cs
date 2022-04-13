@@ -65,8 +65,6 @@ namespace OrganicFoodShop.Controllers
             this.data.Add(productData);
             this.data.SaveChanges();
 
-            // return this.View();
-            // ВИНАГИ redirektvame, a ne vryshtam view, zashtoto user-a ako dade refresh na zqvkata, shte se izprati formata otnovo
             return this.RedirectToAction(nameof(All));
         }
 
@@ -82,22 +80,73 @@ namespace OrganicFoodShop.Controllers
                     .ToList();
         }
 
-        public IActionResult All()
+        public IActionResult All(int category, string manufacturer, string searchTerm)
         {
-            var products = data
-                .Products
+            var productsQuery = this.data.Products.AsQueryable();
+
+            if (category > 0)
+            {
+                productsQuery = productsQuery
+                    .Where(p =>
+                    p.Category.Id == category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(manufacturer))
+            {
+                if (manufacturer != "Select a Manufacturer")
+                {
+                    productsQuery = productsQuery
+                        .Where(p =>
+                        p.Manufacturer == manufacturer);
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                productsQuery = productsQuery
+                    .Where(p =>
+                    p.Barcode.ToLower().Contains(searchTerm.ToLower()) ||
+                    p.Description.ToLower().Contains(searchTerm.ToLower()) ||
+                    p.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                    p.Manufacturer.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+
+            var products = productsQuery
                 .OrderByDescending(p => p.Id)
-                .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
-                //.Select(p => new ProductListingViewModel
-                //{
-                //    Id = p.Id,
-                //    Name = p.Name,
-                //    PriceSell = p.PriceSell,
-                //    ImageURL = p.ImageURL
-                //})
+                // .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
+                .Select(p => new ProductListingViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    PriceSell = p.PriceSell,
+                    ImageURL = p.ImageURL
+                })
                 .ToList();
 
-            return this.View(products);
+            var productManufacturers = this.data
+                .Products
+                .Select(p => p.Manufacturer)
+                .Distinct()
+                .ToList();
+
+            var productCategories = this.data
+                .Products
+                .Select(p => new CategoryViewModel 
+                {
+                    Name = p.Category.Name,
+                    Id = p.Category.Id
+                })
+                .Distinct()
+                .ToList();
+
+            return View(new AllProductsQueryModel
+            {
+                Products = products,
+                Categories = productCategories,
+                Manufacturers = productManufacturers,
+                SearchTerm = searchTerm
+            });
         }
     }
 }
