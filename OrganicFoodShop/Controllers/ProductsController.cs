@@ -111,18 +111,6 @@ namespace OrganicFoodShop.Controllers
                     p.Manufacturer.ToLower().Contains(searchTerm.ToLower()));
             }
 
-            var products = productsQuery
-                .OrderByDescending(p => p.Id)
-                // .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
-                .Select(p => new ProductListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    PriceSell = p.PriceSell,
-                    ImageURL = p.ImageURL
-                })
-                .ToList();
-
             productsQuery = sorting switch
             {
                 ProductSorting.PriceAsc => productsQuery.OrderBy(p => p.PriceSell),
@@ -130,6 +118,17 @@ namespace OrganicFoodShop.Controllers
                 ProductSorting.DateCreatedAsc => productsQuery.OrderBy(p => p.Id),
                 ProductSorting.DateCreatedDesc or _ => productsQuery.OrderByDescending(p => p.Id)
             };
+
+            var products = productsQuery
+                .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
+                //.Select(p => new ProductListingViewModel
+                //{
+                //    Id = p.Id,
+                //    Name = p.Name,
+                //    PriceSell = p.PriceSell,
+                //    ImageURL = p.ImageURL
+                //})
+                .ToList();
 
             var productManufacturers = this.data
                 .Products

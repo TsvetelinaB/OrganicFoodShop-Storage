@@ -16,6 +16,7 @@ namespace OrganicFoodShop.Models.Products
 
         [Display(Name = "Filter")]
         public string Category { get; set; }
+       // public CategoryViewModel Category { get; set; }
 
         public IEnumerable<CategoryViewModel> Categories { get; set; }
 
