@@ -80,7 +80,7 @@ namespace OrganicFoodShop.Controllers
                     .ToList();
         }
 
-        public IActionResult All(int category, string manufacturer, string searchTerm)
+        public IActionResult All(int category, string manufacturer, string searchTerm, ProductSorting sorting)
         {
             var productsQuery = this.data.Products.AsQueryable();
 
@@ -111,7 +111,6 @@ namespace OrganicFoodShop.Controllers
                     p.Manufacturer.ToLower().Contains(searchTerm.ToLower()));
             }
 
-
             var products = productsQuery
                 .OrderByDescending(p => p.Id)
                 // .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
@@ -123,6 +122,14 @@ namespace OrganicFoodShop.Controllers
                     ImageURL = p.ImageURL
                 })
                 .ToList();
+
+            productsQuery = sorting switch
+            {
+                ProductSorting.PriceAsc => productsQuery.OrderBy(p => p.PriceSell),
+                ProductSorting.PriceDesc => productsQuery.OrderByDescending(p => p.PriceSell),
+                ProductSorting.DateCreatedAsc => productsQuery.OrderBy(p => p.Id),
+                ProductSorting.DateCreatedDesc or _ => productsQuery.OrderByDescending(p => p.Id)
+            };
 
             var productManufacturers = this.data
                 .Products
@@ -145,7 +152,8 @@ namespace OrganicFoodShop.Controllers
                 Products = products,
                 Categories = productCategories,
                 Manufacturers = productManufacturers,
-                SearchTerm = searchTerm
+                SearchTerm = searchTerm,
+                Sorting = sorting
             });
         }
     }

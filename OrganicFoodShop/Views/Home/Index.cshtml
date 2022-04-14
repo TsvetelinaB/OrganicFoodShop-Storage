@@ -16,13 +16,13 @@
     var thirdProduct = Model.Count > 2 ? Model[2] : null;
 }
 
-<div class="jumbotron col-md-12 ">
+<div class="jumbotron col-md-10">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
+        @*<ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="@firstProduct" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="@secondProduct"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="@thirdProduct"></li>
-        </ol>
+        </ol>*@
 
         <div class="carousel-inner align-content-lg-center">
             @if (firstProduct != null)

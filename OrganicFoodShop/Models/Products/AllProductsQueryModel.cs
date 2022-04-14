@@ -9,12 +9,12 @@ namespace OrganicFoodShop.Models.Products
 {
     public class AllProductsQueryModel
     {
-        [Display(Name = "")]
+        [Display (Name = "")]
         public string Manufacturer { get; set; }
 
         public IEnumerable<string> Manufacturers { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Filter")]
         public string Category { get; set; }
 
         public IEnumerable<CategoryViewModel> Categories { get; set; }
@@ -22,6 +22,7 @@ namespace OrganicFoodShop.Models.Products
         [Display(Name = "Search")]
         public string SearchTerm { get; set; }
 
+        [Display(Name = "Sort")]
         public ProductSorting Sorting { get; set; }
 
         public IEnumerable<ProductListingViewModel> Products { get; set; }
