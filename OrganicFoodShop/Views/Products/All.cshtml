@@ -75,11 +75,6 @@
     var nextPage = (currentPage + 1) <= lastPage ? (currentPage + 1) : lastPage;
 }
 
-@*
-        @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-    @(disableButton ? "disabled" : string.Empty)"
-    }*@
-
 <div class="row">
     <div class="col-md-6">
         <a class="btn btn-primary float-md-left @(currentPage == 1 ? "disabled" : string.Empty)"
@@ -93,7 +88,8 @@
     </div>
 
     @{
-        var disableButton = Model.CurrentPage == lastPage || !Model.Products.Any();
+        var disableButton = Model.CurrentPage == lastPage;
+        //|| !Model.Products.Any();
     }
 
     <div class="col-md-6">
