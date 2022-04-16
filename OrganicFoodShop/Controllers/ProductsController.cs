@@ -49,19 +49,7 @@ namespace OrganicFoodShop.Controllers
             }
 
             var productData = mapper.Map<Product>(product);
-                
-            //    new Product{
-            //    ImageURL = product.ImageURL,
-            //    PriceBuy = product.PriceBuy,
-            //    PriceSell = product.PriceSell,
-            //    Barcode = product.Barcode,
-            //    CategoryId = product.CategoryId,                 
-            //    Description = product.Description,
-            //    Manufacturer = product.Manufacturer,
-            //    Quantity = product.Quantity,
-            //    Name = product.Name
-            //};
-
+        
             this.data.Add(productData);
             this.data.SaveChanges();
 
@@ -80,7 +68,7 @@ namespace OrganicFoodShop.Controllers
                     .ToList();
         }
 
-        public IActionResult All(int category, string manufacturer, string searchTerm, ProductSorting sorting)
+        public IActionResult All([FromQuery] AllProductsQueryModel query, int category)
         {
             var productsQuery = this.data.Products.AsQueryable();
 
@@ -91,27 +79,27 @@ namespace OrganicFoodShop.Controllers
                     p.Category.Id == category);
             }
 
-            if (!string.IsNullOrWhiteSpace(manufacturer))
+            if (!string.IsNullOrWhiteSpace(query.Manufacturer))
             {
-                if (manufacturer != "Select a Manufacturer")
+                if (query.Manufacturer != "Select a Manufacturer")
                 {
                     productsQuery = productsQuery
                         .Where(p =>
-                        p.Manufacturer == manufacturer);
+                        p.Manufacturer == query.Manufacturer);
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 productsQuery = productsQuery
                     .Where(p =>
-                    p.Barcode.ToLower().Contains(searchTerm.ToLower()) ||
-                    p.Description.ToLower().Contains(searchTerm.ToLower()) ||
-                    p.Name.ToLower().Contains(searchTerm.ToLower()) ||
-                    p.Manufacturer.ToLower().Contains(searchTerm.ToLower()));
+                    p.Barcode.ToLower().Contains(query.SearchTerm.ToLower()) ||
+                    p.Description.ToLower().Contains(query.SearchTerm.ToLower()) ||
+                    p.Name.ToLower().Contains(query.SearchTerm.ToLower()) ||
+                    p.Manufacturer.ToLower().Contains(query.SearchTerm.ToLower()));
             }
 
-            productsQuery = sorting switch
+            productsQuery = query.Sorting switch
             {
                 ProductSorting.PriceAsc => productsQuery.OrderBy(p => p.PriceSell),
                 ProductSorting.PriceDesc => productsQuery.OrderByDescending(p => p.PriceSell),
@@ -120,15 +108,12 @@ namespace OrganicFoodShop.Controllers
             };
 
             var products = productsQuery
+                .Skip((query.CurrentPage - 1)*AllProductsQueryModel.ProductsPerPage)
+                .Take(AllProductsQueryModel.ProductsPerPage)                
                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
-                //.Select(p => new ProductListingViewModel
-                //{
-                //    Id = p.Id,
-                //    Name = p.Name,
-                //    PriceSell = p.PriceSell,
-                //    ImageURL = p.ImageURL
-                //})
                 .ToList();
+
+            var totalProducts = this.data.Products.Count();
 
             var productManufacturers = this.data
                 .Products
@@ -151,8 +136,10 @@ namespace OrganicFoodShop.Controllers
                 Products = products,
                 Categories = productCategories,
                 Manufacturers = productManufacturers,
-                SearchTerm = searchTerm,
-                Sorting = sorting
+                TotalProducts = totalProducts,
+                SearchTerm = query.SearchTerm,
+                Sorting = query.Sorting,
+                CurrentPage = query.CurrentPage
             });
         }
     }

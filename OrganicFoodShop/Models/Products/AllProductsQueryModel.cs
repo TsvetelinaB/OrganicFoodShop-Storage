@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+using OrganicFoodShop.Data;
+
 namespace OrganicFoodShop.Models.Products
 {
     public class AllProductsQueryModel
@@ -25,6 +27,13 @@ namespace OrganicFoodShop.Models.Products
 
         [Display(Name = "Sort")]
         public ProductSorting Sorting { get; set; }
+
+        public const int ProductsPerPage = 2;
+        //GlobalConstants.ProductsPerPage;
+
+        public int CurrentPage { get; set; } = GlobalConstants.DefaultPageNumber;
+
+        public int TotalProducts{ get; set; }
 
         public IEnumerable<ProductListingViewModel> Products { get; set; }
     }

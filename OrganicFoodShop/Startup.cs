@@ -79,10 +79,18 @@ namespace OrganicFoodShop
 
             app.UseEndpoints(endpoints =>
             {
+
+
+
                 endpoints.MapDefaultControllerRoute();
                 //.MapControllerRoute(
                 //name: "default",
                 //pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+name: "paging",
+pattern: "{controller=Products}/{action=All}/{currentPage?}");
+
                 endpoints.MapRazorPages();
             });
         }
