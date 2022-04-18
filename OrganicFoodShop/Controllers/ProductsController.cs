@@ -113,8 +113,6 @@ namespace OrganicFoodShop.Controllers
                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
-            //var totalProducts = this.data.Products.Count();
-
             var totalProducts = productsQuery.Count();
 
             var productManufacturers = this.data
@@ -141,7 +139,9 @@ namespace OrganicFoodShop.Controllers
                 TotalProducts = totalProducts,
                 SearchTerm = query.SearchTerm,
                 Sorting = query.Sorting,
-                CurrentPage = query.CurrentPage
+                CurrentPage = query.CurrentPage,
+                Category = query.Category,
+                Manufacturer = query.Manufacturer
             });
         }
     }

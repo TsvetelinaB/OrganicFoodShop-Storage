@@ -88,8 +88,7 @@
     </div>
 
     @{
-        var disableButton = Model.CurrentPage == lastPage;
-        //|| !Model.Products.Any();
+        var disableButton = Model.CurrentPage == lastPage || !Model.Products.Any();
     }
 
     <div class="col-md-6">

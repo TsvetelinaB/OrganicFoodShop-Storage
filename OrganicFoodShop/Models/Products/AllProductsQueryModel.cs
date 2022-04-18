@@ -28,8 +28,7 @@ namespace OrganicFoodShop.Models.Products
         [Display(Name = "Sort")]
         public ProductSorting Sorting { get; set; }
 
-        public const int ProductsPerPage = 2;
-        //GlobalConstants.ProductsPerPage;
+        public const int ProductsPerPage = GlobalConstants.ProductsPerPage;
 
         public int CurrentPage { get; set; } = GlobalConstants.DefaultPageNumber;
 
