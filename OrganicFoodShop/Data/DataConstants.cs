@@ -12,7 +12,7 @@
 
         public class Category
         {
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 40;
         }
 
         public class Employee

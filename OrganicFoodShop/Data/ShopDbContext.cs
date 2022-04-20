@@ -7,7 +7,7 @@ using OrganicFoodShop.Data.Models;
 
 namespace OrganicFoodShop.Data
 {
-    public class ShopDbContext : IdentityDbContext
+    public class ShopDbContext : IdentityDbContext<User>
     {
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
             : base(options)

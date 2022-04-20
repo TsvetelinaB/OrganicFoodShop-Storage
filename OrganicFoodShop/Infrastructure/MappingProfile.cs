@@ -14,7 +14,7 @@ namespace OrganicFoodShop.Infrastructure
             this.CreateMap<Product,ProductListingViewModel>();
 
             this.CreateMap<AddProductFormModel, Product>();
-             // .ForMember(p => p.Employee.Id, cfg => cfg.MapFrom(p => p.EmployeeId));
+          //    .ForMember(p => p.Employee.Id, cfg => cfg.MapFrom(p => p.));
 
             this.CreateMap<Employee, RegisterEmployeeFormModel>();
 
