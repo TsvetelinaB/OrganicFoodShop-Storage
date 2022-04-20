@@ -30,7 +30,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        @if (!User.Identity.IsAuthenticated)
+                        @*@if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Register">Register</a>
@@ -38,9 +38,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
                             </li>
-                        }
+                        }*@
                     </ul>
-                    @* <partial name="_LoginPartial" />*@
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

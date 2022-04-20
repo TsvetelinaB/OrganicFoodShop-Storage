@@ -28,10 +28,11 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if(EmployeeId() == 0)
-            {
-                return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
-            }
+            //if(EmployeeId() == 0)
+            //{
+            //    //return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
+            //    return RedirectToAction("Register", "Employees");
+            //}
 
             return this.View(new AddProductFormModel
             {
@@ -45,7 +46,8 @@ namespace OrganicFoodShop.Controllers
         {
             if (EmployeeId() == 0)
             {
-                return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
+                //  return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
+                return RedirectToAction("Register","Employees");
             }
 
             if (!this.data.Categories.Any(c => c.Id == product.CategoryId))

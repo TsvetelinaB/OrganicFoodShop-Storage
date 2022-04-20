@@ -30,8 +30,10 @@ namespace OrganicFoodShop
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<User>(options =>
-                    {
+                //.AddDefaultIdentity<User>(options =>
+
+                 .AddDefaultIdentity<IdentityUser>(options =>
+                 {
                         options.Password.RequireDigit = false;
                         options.Password.RequireLowercase = false;
                         options.Password.RequireNonAlphanumeric = false;

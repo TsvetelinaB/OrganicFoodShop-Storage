@@ -7,7 +7,7 @@ using OrganicFoodShop.Data.Models;
 
 namespace OrganicFoodShop.Data
 {
-    public class ShopDbContext : IdentityDbContext<User>
+    public class ShopDbContext : IdentityDbContext //   <User>
     {
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
             : base(options)
@@ -38,7 +38,8 @@ namespace OrganicFoodShop.Data
 
             builder
                 .Entity<Employee>()
-                .HasOne<User>()
+                //.HasOne<User>()
+                .HasOne<IdentityUser>()
                 .WithOne()
                 .HasForeignKey<Employee>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
