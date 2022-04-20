@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-using static OrganicFoodShop.Data.DataConstants;
+using static OrganicFoodShop.Data.DataConstants.Product;
 
 namespace OrganicFoodShop.Data.Models
 {
@@ -16,11 +12,12 @@ namespace OrganicFoodShop.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(ProductNameMaxLength)]
+        [MinLength (NameMinLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(ProductNameMaxLength)]
+        [MaxLength(BarcodeMaxLength)]
         public string Barcode { get; set; }
 
         [Column(TypeName = "decimal(9, 3)")]
@@ -40,9 +37,13 @@ namespace OrganicFoodShop.Data.Models
 
         public Category Category { get; set; }
 
-        [MaxLength(ProductDescriptionMaxLength)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         public string ImageURL { get; set; }
+
+        public int EmployeeId { get; set; }
+
+        public Employee Employee { get; set; }
     }
 }

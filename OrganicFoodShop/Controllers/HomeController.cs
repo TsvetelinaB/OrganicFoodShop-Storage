@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AutoMapper;
+﻿using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 using OrganicFoodShop.Data;
-using OrganicFoodShop.Models;
 using OrganicFoodShop.Models.Products;
 
 namespace OrganicFoodShop.Controllers

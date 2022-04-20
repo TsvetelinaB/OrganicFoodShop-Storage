@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Linq;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Data.Models;
-
-using System.Linq;
 
 namespace OrganicFoodShop.Infrastructure
 {

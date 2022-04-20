@@ -1,27 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-using OrganicFoodShop.Data.Models;
-
-using static OrganicFoodShop.Data.DataConstants;
+using static OrganicFoodShop.Data.DataConstants.Product;
 
 namespace OrganicFoodShop.Models.Products
 {
     public class AddProductFormModel
     {
         [Required(ErrorMessage = "Field '{0}' is required")]
-        [StringLength(ProductNameMaxLength, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols", MinimumLength = ProductNameMinLength)]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols")]
         [Display(Name = "Product Name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Field '{0}' is required")]
-        [MaxLength(ProductBarcodeMaxLength)]
+        [MaxLength(BarcodeMaxLength)]
         public string Barcode { get; set; }
 
         [Required(ErrorMessage = "Field '{0}' is required")]
@@ -52,7 +45,7 @@ namespace OrganicFoodShop.Models.Products
         //[Required(ErrorMessage = "Option in field '{0}' is required to be selected")]
         //public Category Category { get; set; }
 
-        [StringLength(ProductDescriptionMaxLength, ErrorMessage = "Field '{0}' must be {1} symbols maximum")]
+        [StringLength(DescriptionMaxLength, ErrorMessage = "Field '{0}' must be {1} symbols maximum")]
         public string Description { get; set; }
 
         [Display(Name = "Image URL")]

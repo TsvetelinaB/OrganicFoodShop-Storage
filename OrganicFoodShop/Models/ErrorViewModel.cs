@@ -1,5 +1,3 @@
-using System;
-
 namespace OrganicFoodShop.Models
 {
     public class ErrorViewModel

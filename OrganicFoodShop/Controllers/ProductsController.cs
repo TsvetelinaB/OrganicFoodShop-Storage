@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Data.Models;
+using OrganicFoodShop.Infrastructure;
 using OrganicFoodShop.Models.Products;
 
 namespace OrganicFoodShop.Controllers
@@ -25,8 +25,14 @@ namespace OrganicFoodShop.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         public IActionResult Add()
         {
+            if(EmployeeId() == 0)
+            {
+                return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
+            }
+
             return this.View(new AddProductFormModel
             {
                 Categories = this.GetProductCategories()
@@ -34,8 +40,14 @@ namespace OrganicFoodShop.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddProductFormModel product)
         {
+            if (EmployeeId() == 0)
+            {
+                return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
+            }
+
             if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
@@ -49,11 +61,21 @@ namespace OrganicFoodShop.Controllers
             }
 
             var productData = mapper.Map<Product>(product);
-        
-            this.data.Add(productData);
+
+            //this.data.Add(productData);
+            this.data.Products.Add(productData);
             this.data.SaveChanges();
 
             return this.RedirectToAction(nameof(All));
+        }
+
+        private int EmployeeId()
+        {
+            return this.data
+                        .Employees
+                        .Where(e => e.UserId == this.User.GetId())
+                        .Select(e => e.Id)
+                        .FirstOrDefault();
         }
 
         private IEnumerable<CategoryViewModel> GetProductCategories()
@@ -108,8 +130,8 @@ namespace OrganicFoodShop.Controllers
             };
 
             var products = productsQuery
-                .Skip((query.CurrentPage - 1)*AllProductsQueryModel.ProductsPerPage)
-                .Take(AllProductsQueryModel.ProductsPerPage)                
+                .Skip((query.CurrentPage - 1) * AllProductsQueryModel.ProductsPerPage)
+                .Take(AllProductsQueryModel.ProductsPerPage)
                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
@@ -123,7 +145,7 @@ namespace OrganicFoodShop.Controllers
 
             var productCategories = this.data
                 .Products
-                .Select(p => new CategoryViewModel 
+                .Select(p => new CategoryViewModel
                 {
                     Name = p.Category.Name,
                     Id = p.Category.Id

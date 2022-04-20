@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Models.Users;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OrganicFoodShop.Controllers
 {
@@ -28,7 +26,8 @@ namespace OrganicFoodShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterFormModel user)
+        public IActionResult Register(RegisterFormModel user)
+        //public async Task<IActionResult> Register(RegisterFormModel user)
         {
             if (!this.ModelState.IsValid)
             {
@@ -37,29 +36,29 @@ namespace OrganicFoodShop.Controllers
                 return this.RedirectToAction(nameof(Register));
             }
 
-            var registeredUser = new User
-            {
-                Email = user.Email,
-                UserName = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName
-                //ne zadavame parolata, zashtoto trqbva da e heshirana
-            };
+            //var registeredUser = new User
+            //{
+            //    Email = user.Email,
+            //    UserName = user.Email,
+            //    // FirstName = user.FirstName,
+            //    //LastName = user.LastName
+            //    //ne zadavame parolata, zashtoto trqbva da e heshirana
+            //};
 
-            //createAsync автоматично ще хешира паролата
-            var result = await this.userManager.CreateAsync(registeredUser, user.Password);
+            ////createAsync автоматично ще хешира паролата
+            //var result = await this.userManager.CreateAsync(registeredUser, user.Password);
 
-            if (!result.Succeeded)
-            {
-                var errors = result.Errors.Select(e => e.Description);
+            //if (!result.Succeeded)
+            //{
+            //    var errors = result.Errors.Select(e => e.Description);
 
-                foreach (var error in errors)
-                {
-                    ModelState.AddModelError(string.Empty, error);
-                }
+            //    foreach (var error in errors)
+            //    {
+            //        ModelState.AddModelError(string.Empty, error);
+            //    }
 
-                return View(user);
-            }
+            //    return View(user);
+            //}
 
             return RedirectToAction("Index", "Home");
         }
