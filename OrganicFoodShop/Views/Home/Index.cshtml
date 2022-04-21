@@ -16,7 +16,7 @@
         var thirdProduct = Model.Count > 2 ? Model[2] : null;
     }*@
 
-<div class="jumbotron col-md-10">
+<div class="jumbotron col-lg-10 col-md-10 align-content-center">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
         @*<ol class="carousel-indicators">
@@ -90,10 +90,29 @@
         </div>
     </div>*@
 
-@*@section Scripts{
+<div class="row">
+    <div class="col-md-10 text-center align-content-md-center">
+        <button class="btn btn-outline-info" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<div class="jumbotron col-md-10 align-content-md-center d-none" id="statistics">
+    <div class="row">
+        <h2 class="col-md-4 text-center" id="total-products"></h2>
+        <h2 class="col-md-4 text-center" id="total-employees"></h2>
+    </div>
+</div>
+
+@section Scripts{
     <script>
-        $.get('api/statistics', (data) => {
-            console.log(data);
-        })
-    </script>*@
+        $('#statistics-button').on('click', ev => {
+            $.get('api/statistics', (data) => {
+                $('#total-products').text(data.totalProducts + " products");
+                $('#total-employees').text(data.totalEmployees + " employees");
+
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            })
+        });
+    </script>
 }
