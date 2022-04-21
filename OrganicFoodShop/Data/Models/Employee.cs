@@ -19,7 +19,7 @@ namespace OrganicFoodShop.Data.Models
         [MaxLength(UsernameMaxLength)]
         public string Username { get; set; }
 
-        public int DateEmployed { get; set; }
+        //public int DateEmployed { get; set; }
 
         [Required]
         public string UserId { get; set; }

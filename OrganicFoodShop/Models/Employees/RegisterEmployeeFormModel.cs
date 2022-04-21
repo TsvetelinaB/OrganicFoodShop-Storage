@@ -16,11 +16,8 @@ namespace OrganicFoodShop.Models.Employees
         [StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols")]
         public string Username { get; set; }
 
-        [Range(YearMinValue, YearMaxValue)]
-        [Display(Name = "Date Employed")]
-        public int DateEmployed { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
+        // [Range(YearMinValue, YearMaxValue)]
+        //[Display(Name = "Date Employed")]
+        //public int DateEmployed { get; set; }
     }
 }

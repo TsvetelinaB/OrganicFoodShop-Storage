@@ -28,11 +28,10 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            //if(EmployeeId() == 0)
-            //{
-            //    //return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
-            //    return RedirectToAction("Register", "Employees");
-            //}
+            if (EmployeeId() == 0)
+            {
+                return RedirectToAction(nameof(EmployeesController.Register), "Employees");
+            }
 
             return this.View(new AddProductFormModel
             {
@@ -46,8 +45,7 @@ namespace OrganicFoodShop.Controllers
         {
             if (EmployeeId() == 0)
             {
-                //  return RedirectToAction(nameof(EmployeesController.Register), nameof(EmployeesController));
-                return RedirectToAction("Register","Employees");
+                return RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
 
             if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
@@ -64,6 +62,8 @@ namespace OrganicFoodShop.Controllers
 
             var productData = mapper.Map<Product>(product);
 
+            productData.EmployeeId = EmployeeId();
+
             //this.data.Add(productData);
             this.data.Products.Add(productData);
             this.data.SaveChanges();
@@ -73,9 +73,11 @@ namespace OrganicFoodShop.Controllers
 
         private int EmployeeId()
         {
+            var userId = this.User.GetId();
+
             return this.data
                         .Employees
-                        .Where(e => e.UserId == this.User.GetId())
+                        .Where(e => e.UserId == userId)
                         .Select(e => e.Id)
                         .FirstOrDefault();
         }

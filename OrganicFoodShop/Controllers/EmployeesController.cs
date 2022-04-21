@@ -33,9 +33,11 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Register(RegisterEmployeeFormModel employee)
         {
+            var userId = this.User.GetId();
+
             var userIsAlreadyEmployee = this.data
                 .Employees
-                .Any(e => e.UserId == this.User.GetId());
+                .Any(e => e.UserId == userId);
 
             if (userIsAlreadyEmployee)
             {
@@ -47,13 +49,17 @@ namespace OrganicFoodShop.Controllers
                 return View(employee);
 }
 
-            var employeeData = mapper.Map<Employee>(employee);
+            var employeeData = new Employee
+            {
+                FullName = employee.FullName,
+                Username = employee.Username,
+                UserId = userId
+            };
 
             this.data.Employees.Add(employeeData);
             this.data.SaveChanges();
 
-            // return this.RedirectToAction(nameof(ProductsController.All), nameof(ProductsController));
-            return this.RedirectToAction("All","Products");
+            return this.RedirectToAction(nameof(ProductsController.All),"Products");
         }
     }
 }
