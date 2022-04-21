@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+    
 using static OrganicFoodShop.Data.DataConstants.Product;
 
 namespace OrganicFoodShop.Models.Products

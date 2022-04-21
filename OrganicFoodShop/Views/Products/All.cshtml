@@ -58,14 +58,19 @@
                 <img class="card-img-top" src="@product.ImageURL" alt="@product.Name" />
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
-                    <p class="card-text">Bla bla</p>
+                    @*<p class="card-text">Bla bla</p>*@
                     <p class="card-subtitle">@Math.Round(product.PriceSell, 2) лв.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="#" class="btn btn-primary">View it!</a>
                 </div>
             </div>
         </div>
     }
 </div>
+
+@if (!Model.Products.Any())
+ { 
+    <h2 class="text-center">No products found by the given criteria</h2>
+}
 
 @{
     var currentPage = Model.CurrentPage;
