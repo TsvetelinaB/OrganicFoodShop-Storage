@@ -14,7 +14,6 @@ namespace OrganicFoodShop.Infrastructure
 
         public static IApplicationBuilder PrepareDatabase(this IApplicationBuilder app)
         {
-            //create scope for dbcontext
             using var serviceScope = app.ApplicationServices.CreateScope();
 
             var db = serviceScope.ServiceProvider.GetRequiredService<ShopDbContext>();
@@ -45,12 +44,6 @@ namespace OrganicFoodShop.Infrastructure
                 new Category {Name = "Cosmetics"},
                 new Category {Name = "Other"}
             });
-
-            //[Display(Name = "Grains, Seeds, Nuts, Fruits")] = 2,
-            //[Display(Name = "Oils, Spreads, Jams")] s = 3,
-            //[Display(Name = "Coffee, Tea")]  = 4,
-            //[Display(Name = "Chocolates, Desserts")]  = 5,
-            //[Display(Name = "Nutritional Supplements")]  = 6,
 
             db.SaveChanges();
         }

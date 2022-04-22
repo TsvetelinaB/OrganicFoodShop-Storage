@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using OrganicFoodShop.Data;
-using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Infrastructure;
 
 namespace OrganicFoodShop
@@ -84,8 +82,8 @@ namespace OrganicFoodShop
                 //pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
-name: "paging",
-pattern: "{controller=Products}/{action=All}/{currentPage?}");
+                    name: "paging",
+                    pattern: "{controller=Products}/{action=All}/{currentPage?}");
 
                 endpoints.MapRazorPages();
             });
