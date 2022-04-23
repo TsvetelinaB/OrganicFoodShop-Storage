@@ -11,6 +11,8 @@ using OrganicFoodShop.Data;
 using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Infrastructure;
 using OrganicFoodShop.Models.Products;
+using OrganicFoodShop.Services.Employees;
+using OrganicFoodShop.Services.Products;
 
 namespace OrganicFoodShop.Controllers
 {
@@ -18,24 +20,30 @@ namespace OrganicFoodShop.Controllers
     {
         private readonly ShopDbContext data;
         private readonly IMapper mapper;
+        private readonly IProductService products;
+        private readonly IEmployeeService employees;
 
-        public ProductsController(ShopDbContext data, IMapper mapper)
+        public ProductsController(ShopDbContext data, IMapper mapper, IProductService products, IEmployeeService employees)
         {
             this.data = data;
             this.mapper = mapper;
+            this.products = products;
+            this.employees = employees;
         }
 
         [Authorize]
         public IActionResult Add()
         {
-            if (EmployeeId() == 0)
+            if (this.employees.EmployeeId(this.User.GetId()) == 0)
             {
                 return RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
 
-            return this.View(new AddProductFormModel
+            return View(new AddProductFormModel
             {
-                Categories = this.GetProductCategories()
+                 
+              //  Categories = this.products.AllProductCategories()
+               Categories = this.GetProductCategories()
             });
         }
 
@@ -43,7 +51,7 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Add(AddProductFormModel product)
         {
-            if (EmployeeId() == 0)
+            if (this.employees.EmployeeId(this.User.GetId()) == 0)
             {
                 return RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -55,14 +63,14 @@ namespace OrganicFoodShop.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                product.Categories = this.GetProductCategories();
+             //   product.Categories = this.GetProductCategories();
 
                 return this.View(product);
             }
 
             var productData = mapper.Map<Product>(product);
 
-            productData.EmployeeId = EmployeeId();
+            productData.EmployeeId = this.employees.EmployeeId(this.User.GetId());
 
             //this.data.Add(productData);
             this.data.Products.Add(productData);
@@ -71,16 +79,16 @@ namespace OrganicFoodShop.Controllers
             return this.RedirectToAction(nameof(All));
         }
 
-        private int EmployeeId()
-        {
-            var userId = this.User.GetId();
+        //private int EmployeeId()
+        //{
+        //    var userId = this.User.GetId();
 
-            return this.data
-                        .Employees
-                        .Where(e => e.UserId == userId)
-                        .Select(e => e.Id)
-                        .FirstOrDefault();
-        }
+        //    return this.data
+        //                .Employees
+        //                .Where(e => e.UserId == userId)
+        //                .Select(e => e.Id)
+        //                .FirstOrDefault();
+        //}
 
         private IEnumerable<CategoryViewModel> GetProductCategories()
         {

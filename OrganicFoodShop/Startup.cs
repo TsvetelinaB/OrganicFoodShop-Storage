@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Infrastructure;
+using OrganicFoodShop.Services.Employees;
+using OrganicFoodShop.Services.Products;
 
 namespace OrganicFoodShop
 {
@@ -44,6 +46,10 @@ namespace OrganicFoodShop
             services.AddControllersWithViews();
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

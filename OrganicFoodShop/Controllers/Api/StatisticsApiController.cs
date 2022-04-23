@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 using OrganicFoodShop.Data;
@@ -19,6 +20,7 @@ namespace OrganicFoodShop.Controllers.Api
         }
 
         [HttpGet]
+        [EnableCors]
         public StatisticsResponseModel Statistics()
         {
             var totalProducts = this.data.Products.Count();

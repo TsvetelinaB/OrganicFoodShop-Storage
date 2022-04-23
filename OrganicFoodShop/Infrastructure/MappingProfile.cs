@@ -4,6 +4,7 @@ using AutoMapper;
 using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Models.Employees;
 using OrganicFoodShop.Models.Products;
+using OrganicFoodShop.Services.Products.Models;
 
 namespace OrganicFoodShop.Infrastructure
 {
@@ -16,6 +17,9 @@ namespace OrganicFoodShop.Infrastructure
             this.CreateMap<AddProductFormModel, Product>();
 
             this.CreateMap<Employee, RegisterEmployeeFormModel>();
+
+            //
+            this.CreateMap<Category, ProductCategoryServiceModel>();
 
         }
     }
