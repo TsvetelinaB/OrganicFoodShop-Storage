@@ -2,7 +2,6 @@
 using System.Linq;
 
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Services.Products.Models;

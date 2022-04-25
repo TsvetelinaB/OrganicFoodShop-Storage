@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-    
+
+using OrganicFoodShop.Services.Products.Models;
+
 using static OrganicFoodShop.Data.DataConstants.Product;
 
 namespace OrganicFoodShop.Models.Products
@@ -40,10 +42,7 @@ namespace OrganicFoodShop.Models.Products
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public IEnumerable<CategoryViewModel> Categories { get; set; }  
-
-        //[Required(ErrorMessage = "Option in field '{0}' is required to be selected")]
-        //public Category Category { get; set; }
+        public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }  
 
         [StringLength(DescriptionMaxLength, ErrorMessage = "Field '{0}' must be {1} symbols maximum")]
         public string Description { get; set; }

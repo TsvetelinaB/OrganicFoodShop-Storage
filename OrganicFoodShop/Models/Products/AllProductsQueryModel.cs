@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 using OrganicFoodShop.Data;
+using OrganicFoodShop.Services.Products.Models;
 
 namespace OrganicFoodShop.Models.Products
 {
@@ -14,9 +15,8 @@ namespace OrganicFoodShop.Models.Products
 
         [Display(Name = "Filter")]
         public string Category { get; set; }
-       // public CategoryViewModel Category { get; set; }
 
-        public IEnumerable<CategoryViewModel> Categories { get; set; }
+        public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }
 
         [Display(Name = "Search")]
         public string SearchTerm { get; set; }
