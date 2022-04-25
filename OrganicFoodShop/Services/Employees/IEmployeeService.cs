@@ -3,5 +3,9 @@
     public interface IEmployeeService
     {
         int EmployeeId(string userId);
+
+        bool IsEmployee(string userId);
+
+        void Register(string fullName, string username, string userId);
     }
 }

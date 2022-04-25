@@ -2,6 +2,7 @@
 using System.Linq;
 
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Services.Products.Models;
@@ -23,12 +24,7 @@ namespace OrganicFoodShop.Services.Products
         {
             return this.data
                    .Categories
-                   .Select(c => new ProductCategoryServiceModel
-                   {
-                       Id = c.Id,
-                       Name = c.Name
-                   })
-                //   .ProjectTo<ProductCategoryServiceModel>(this.mapper)
+                   .ProjectTo<ProductCategoryServiceModel>(this.mapper)
                    .ToList();
         }
     }

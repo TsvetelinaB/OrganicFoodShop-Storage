@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 
 using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Models.Employees;
@@ -18,7 +17,6 @@ namespace OrganicFoodShop.Infrastructure
 
             this.CreateMap<Employee, RegisterEmployeeFormModel>();
 
-            //
             this.CreateMap<Category, ProductCategoryServiceModel>();
 
         }

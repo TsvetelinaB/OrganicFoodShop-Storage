@@ -40,10 +40,8 @@ namespace OrganicFoodShop.Controllers
             }
 
             return View(new AddProductFormModel
-            {
-                 
+            {                 
                 Categories = this.products.AllProductCategories()
-               //Categories = this.GetProductCategories()
             });
         }
 
@@ -63,7 +61,6 @@ namespace OrganicFoodShop.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                //   product.Categories = this.GetProductCategories();
                 product.Categories = this.products.AllProductCategories();
                 return this.View(product);
             }
@@ -72,35 +69,11 @@ namespace OrganicFoodShop.Controllers
 
             productData.EmployeeId = this.employees.EmployeeId(this.User.GetId());
 
-            //this.data.Add(productData);
             this.data.Products.Add(productData);
             this.data.SaveChanges();
 
             return this.RedirectToAction(nameof(All));
         }
-
-        //private int EmployeeId()
-        //{
-        //    var userId = this.User.GetId();
-
-        //    return this.data
-        //                .Employees
-        //                .Where(e => e.UserId == userId)
-        //                .Select(e => e.Id)
-        //                .FirstOrDefault();
-        //}
-
-        //private IEnumerable<CategoryViewModel> GetProductCategories()
-        //{
-        //    return this.data
-        //            .Categories
-        //            .Select(c => new CategoryViewModel
-        //            {
-        //                Id = c.Id,
-        //                Name = c.Name
-        //            })
-        //            .ToList();
-        //}
 
         public IActionResult All([FromQuery] AllProductsQueryModel query, int category)
         {
@@ -154,16 +127,6 @@ namespace OrganicFoodShop.Controllers
                 .Select(p => p.Manufacturer)
                 .Distinct()
                 .ToList();
-
-            //var productCategories = this.data
-            //    .Products
-            //    .Select(p => new CategoryViewModel
-            //    {
-            //        Name = p.Category.Name,
-            //        Id = p.Category.Id
-            //    })
-            //    .Distinct()
-            //    .ToList();
 
             var productCategories = this.products.AllProductCategories();
 
