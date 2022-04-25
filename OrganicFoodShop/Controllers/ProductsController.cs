@@ -13,6 +13,9 @@ using OrganicFoodShop.Infrastructure;
 using OrganicFoodShop.Models.Products;
 using OrganicFoodShop.Services.Employees;
 using OrganicFoodShop.Services.Products;
+using OrganicFoodShop.Services.Products.Models;
+
+using static OrganicFoodShop.Data.DataConstants;
 
 namespace OrganicFoodShop.Controllers
 {
@@ -54,7 +57,7 @@ namespace OrganicFoodShop.Controllers
                 return RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
 
-            if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
+            if(!this.products.IsValidCategory(product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
             }
@@ -65,12 +68,11 @@ namespace OrganicFoodShop.Controllers
                 return this.View(product);
             }
 
-            var productData = mapper.Map<Product>(product);
+            var productData = mapper.Map<AddProductServiceModel>(product);
 
-            productData.EmployeeId = this.employees.EmployeeId(this.User.GetId());
+            var employeeId = this.employees.EmployeeId(this.User.GetId());
 
-            this.data.Products.Add(productData);
-            this.data.SaveChanges();
+            this.products.Add(productData, employeeId);
 
             return this.RedirectToAction(nameof(All));
         }

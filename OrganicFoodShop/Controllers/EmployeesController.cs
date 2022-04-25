@@ -3,7 +3,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using OrganicFoodShop.Data;
 using OrganicFoodShop.Infrastructure;
 using OrganicFoodShop.Models.Employees;
 using OrganicFoodShop.Services.Employees;
@@ -44,6 +43,7 @@ namespace OrganicFoodShop.Controllers
             {
                 return View(employee);
             }
+
             this.employees.Register(employee.FullName, employee.Username, userId);
 
             return this.RedirectToAction(nameof(ProductsController.All), "Products");

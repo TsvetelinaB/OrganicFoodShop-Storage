@@ -13,8 +13,11 @@ namespace OrganicFoodShop.Infrastructure
         {
             this.CreateMap<Product,ProductListingViewModel>();
 
-            this.CreateMap<AddProductFormModel, Product>();
-
+            //  this.CreateMap<AddProductFormModel, Product>();
+            this.CreateMap<AddProductFormModel, AddProductServiceModel>();
+            this.CreateMap<AddProductServiceModel, Product>();
+            
+            //is it used anywhere?
             this.CreateMap<Employee, RegisterEmployeeFormModel>();
 
             this.CreateMap<Category, ProductCategoryServiceModel>();
