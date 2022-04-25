@@ -44,8 +44,10 @@ namespace OrganicFoodShop
                 .AddEntityFrameworkStores<ShopDbContext>();
 
             services.AddControllersWithViews();
-
+         
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddCors();
 
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
@@ -73,19 +75,16 @@ namespace OrganicFoodShop
 
             app.UseRouting();
 
+            app.UseCors(options =>
+                options.AllowAnyOrigin());
+
             app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-
-
-
                 endpoints.MapDefaultControllerRoute();
-                //.MapControllerRoute(
-                //name: "default",
-                //pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "paging",

@@ -24,12 +24,12 @@ namespace OrganicFoodShop.Controllers.Api
         public StatisticsResponseModel Statistics()
         {
             var totalProducts = this.data.Products.Count();
-            var totalEmployees = this.data.Employees.Count();
+            var totalUsers = this.data.Users.Count();
 
             var statistics = new StatisticsResponseModel
             {
                 TotalProducts = totalProducts,
-                TotalEmployees = totalEmployees
+                TotalUsers = totalUsers
             };
 
             return statistics;
