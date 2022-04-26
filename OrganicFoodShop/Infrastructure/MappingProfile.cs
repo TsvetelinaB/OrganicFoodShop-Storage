@@ -16,6 +16,7 @@ namespace OrganicFoodShop.Infrastructure
             //  this.CreateMap<AddProductFormModel, Product>();
             this.CreateMap<AddProductFormModel, AddProductServiceModel>();
             this.CreateMap<AddProductServiceModel, Product>();
+            this.CreateMap<AllProductsQueryModel, AllProductsQueryServiceModel>();
             
             //is it used anywhere?
             this.CreateMap<Employee, RegisterEmployeeFormModel>();

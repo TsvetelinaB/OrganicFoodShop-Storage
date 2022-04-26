@@ -79,71 +79,76 @@ namespace OrganicFoodShop.Controllers
 
         public IActionResult All([FromQuery] AllProductsQueryModel query, int category)
         {
-            var productsQuery = this.data.Products.AsQueryable();
+           // var productsQuery = mapper.Map<AllProductsQueryServiceModel>(query);
+            var products = this.products.All(query, category);
 
-            if (category > 0)
-            {
-                productsQuery = productsQuery
-                    .Where(p =>
-                    p.Category.Id == category);
-            }
+            return View(products);
 
-            if (!string.IsNullOrWhiteSpace(query.Manufacturer))
-            {
-                if (query.Manufacturer != "Select a Manufacturer")
-                {
-                    productsQuery = productsQuery
-                        .Where(p =>
-                        p.Manufacturer == query.Manufacturer);
-                }
-            }
+            //var productsQuery = this.data.Products.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            {
-                productsQuery = productsQuery
-                    .Where(p =>
-                    p.Barcode.ToLower().Contains(query.SearchTerm.ToLower()) ||
-                    p.Description.ToLower().Contains(query.SearchTerm.ToLower()) ||
-                    p.Name.ToLower().Contains(query.SearchTerm.ToLower()) ||
-                    p.Manufacturer.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
+            //if (category > 0)
+            //{
+            //    productsQuery = productsQuery
+            //        .Where(p =>
+            //        p.Category.Id == category);
+            //}
 
-            productsQuery = query.Sorting switch
-            {
-                ProductSorting.PriceAsc => productsQuery.OrderBy(p => p.PriceSell),
-                ProductSorting.PriceDesc => productsQuery.OrderByDescending(p => p.PriceSell),
-                ProductSorting.DateCreatedAsc => productsQuery.OrderBy(p => p.Id),
-                ProductSorting.DateCreatedDesc or _ => productsQuery.OrderByDescending(p => p.Id)
-            };
+            //if (!string.IsNullOrWhiteSpace(query.Manufacturer))
+            //{
+            //    if (query.Manufacturer != "Select a Manufacturer")
+            //    {
+            //        productsQuery = productsQuery
+            //            .Where(p =>
+            //            p.Manufacturer == query.Manufacturer);
+            //    }
+            //}
 
-            var products = productsQuery
-                .Skip((query.CurrentPage - 1) * AllProductsQueryModel.ProductsPerPage)
-                .Take(AllProductsQueryModel.ProductsPerPage)
-                .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
-                .ToList();
+            //if (!string.IsNullOrWhiteSpace(query.SearchTerm))
+            //{
+            //    productsQuery = productsQuery
+            //        .Where(p =>
+            //        p.Barcode.ToLower().Contains(query.SearchTerm.ToLower()) ||
+            //        p.Description.ToLower().Contains(query.SearchTerm.ToLower()) ||
+            //        p.Name.ToLower().Contains(query.SearchTerm.ToLower()) ||
+            //        p.Manufacturer.ToLower().Contains(query.SearchTerm.ToLower()));
+            //}
 
-            var totalProducts = productsQuery.Count();
+            //productsQuery = query.Sorting switch
+            //{
+            //    ProductSorting.PriceAsc => productsQuery.OrderBy(p => p.PriceSell),
+            //    ProductSorting.PriceDesc => productsQuery.OrderByDescending(p => p.PriceSell),
+            //    ProductSorting.DateCreatedAsc => productsQuery.OrderBy(p => p.Id),
+            //    ProductSorting.DateCreatedDesc or _ => productsQuery.OrderByDescending(p => p.Id)
+            //};
 
-            var productManufacturers = this.data
-                .Products
-                .Select(p => p.Manufacturer)
-                .Distinct()
-                .ToList();
+            //var products = productsQuery
+            //    .Skip((query.CurrentPage - 1) * AllProductsQueryModel.ProductsPerPage)
+            //    .Take(AllProductsQueryModel.ProductsPerPage)
+            //    .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
+            //    .ToList();
 
-            var productCategories = this.products.AllProductCategories();
+            //var totalProducts = productsQuery.Count();
 
-            return View(new AllProductsQueryModel
-            {
-                Products = products,
-                Categories = productCategories,
-                Manufacturers = productManufacturers,
-                TotalProducts = totalProducts,
-                SearchTerm = query.SearchTerm,
-                Sorting = query.Sorting,
-                CurrentPage = query.CurrentPage,
-                Category = query.Category,
-                Manufacturer = query.Manufacturer
-            });
+            //var productManufacturers = this.data
+            //    .Products
+            //    .Select(p => p.Manufacturer)
+            //    .Distinct()
+            //    .ToList();
+
+            //var productCategories = this.products.AllProductCategories();
+
+            //return View(new AllProductsQueryModel
+            //{
+            //    Products = products,
+            //    Categories = productCategories,
+            //    Manufacturers = productManufacturers,
+            //    TotalProducts = totalProducts,
+            //    SearchTerm = query.SearchTerm,
+            //    Sorting = query.Sorting,
+            //    CurrentPage = query.CurrentPage,
+            //    Category = query.Category,
+            //    Manufacturer = query.Manufacturer
+            //});
         }
     }
 }
