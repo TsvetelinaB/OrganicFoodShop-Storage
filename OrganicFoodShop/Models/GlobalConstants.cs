@@ -1,4 +1,4 @@
-﻿namespace OrganicFoodShop.Data
+﻿namespace OrganicFoodShop.Models
 {
     public class GlobalConstants
     {

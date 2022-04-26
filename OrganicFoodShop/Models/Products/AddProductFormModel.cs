@@ -5,49 +5,51 @@ using System.ComponentModel.DataAnnotations;
 using OrganicFoodShop.Services.Products.Models;
 
 using static OrganicFoodShop.Data.DataConstants.Product;
+using static OrganicFoodShop.Models.ErrorMessages;
+using static OrganicFoodShop.Models.DisplayNameConstants;
 
 namespace OrganicFoodShop.Models.Products
 {
     public class AddProductFormModel
     {
-        [Required(ErrorMessage = "Field '{0}' is required")]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols")]
-        [Display(Name = "Product Name")]
+        [Required(ErrorMessage = FieldRequired)]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = SymbolsCount)]
+        [Display(Name = ProductName)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Field '{0}' is required")]
+        [Required(ErrorMessage = FieldRequired)]
         [MaxLength(BarcodeMaxLength)]
         public string Barcode { get; set; }
 
-        [Required(ErrorMessage = "Field '{0}' is required")]
-        [Range(0.000, 1_000_000.000, ErrorMessage = "Value of field '{0}' is not acceptable")]
-        [Display(Name = "Price Buy")]
+        [Required(ErrorMessage = FieldRequired)]
+        [Range(0.000, 1_000_000.000, ErrorMessage = ValueNotAcceptable)]
+        [Display(Name = ProductPriceBuy)]
         public decimal PriceBuy { get; set; }
 
-        [Required(ErrorMessage = "Field '{0}' is required")]
-        [Range(0.000, 1000000.000, ErrorMessage = "Value of field '{0}' is not acceptable")]
-        [Display(Name = "Price Sell")]
+        [Required(ErrorMessage = FieldRequired)]
+        [Range(0.000, 1000000.000, ErrorMessage = ValueNotAcceptable)]
+        [Display(Name = ProductPriceSell)]
         public decimal PriceSell { get; set; }
 
-        [Required(ErrorMessage = "Field '{0}' is required")]
-        [Range(0, 1_000, ErrorMessage = "Value of field '{0}' is not acceptable")]
+        [Required(ErrorMessage = FieldRequired)]
+        [Range(0, 1_000, ErrorMessage = ValueNotAcceptable)]
         public int Quantity { get; set; }
 
-        [Required(ErrorMessage = "Field '{0}' is required")]
+        [Required(ErrorMessage = FieldRequired)]
         public string Manufacturer { get; set; }
 
         // public bool IsAvalable { get; set; }
        
-        [Required(ErrorMessage = "Field '{0}' is required")]
-        [Display(Name = "Category")]
+        [Required(ErrorMessage = FieldRequired)]
+        [Display(Name = ProductCategory)]
         public int CategoryId { get; set; }
 
         public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }  
 
-        [StringLength(DescriptionMaxLength, ErrorMessage = "Field '{0}' must be {1} symbols maximum")]
+        [StringLength(DescriptionMaxLength, ErrorMessage = SymbolsMax)]
         public string Description { get; set; }
 
-        [Display(Name = "Image URL")]
+        [Display(Name = ProductImageUrl)]
         public string ImageURL { get; set; }
     }
 }

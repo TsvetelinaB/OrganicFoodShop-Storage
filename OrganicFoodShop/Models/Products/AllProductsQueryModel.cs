@@ -1,32 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-using OrganicFoodShop.Data;
 using OrganicFoodShop.Services.Products.Models;
+
+using static OrganicFoodShop.Models.GlobalConstants;
+using static OrganicFoodShop.Models.DisplayNameConstants;
 
 namespace OrganicFoodShop.Models.Products
 {
     public class AllProductsQueryModel
     {
-        [Display (Name = "")]
+        [Display (Name = AllProductsManufacturer)]
         public string Manufacturer { get; set; }
 
         public IEnumerable<string> Manufacturers { get; set; }
 
-        [Display(Name = "Filter")]
+        [Display(Name = AllProductsCategory)]
         public string Category { get; set; }
 
         public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }
 
-        [Display(Name = "Search")]
+        [Display(Name = AllProductsSearchTerm)]
         public string SearchTerm { get; set; }
 
-        [Display(Name = "Sort")]
+        [Display(Name = AllProductsSorting)]
         public ProductSorting Sorting { get; set; }
 
         public const int ProductsPerPage = GlobalConstants.ProductsPerPage;
 
-        public int CurrentPage { get; set; } = GlobalConstants.DefaultPageNumber;
+        public int CurrentPage { get; set; } = DefaultPageNumber;
 
         public int TotalProducts{ get; set; }
 
