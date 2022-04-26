@@ -1,22 +1,17 @@
 ﻿using System.Linq;
 
-using AutoMapper;
-
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Data.Models;
-using OrganicFoodShop.Models.Employees;
 
 namespace OrganicFoodShop.Services.Employees
 {
     public class EmployeeService : IEmployeeService
     {
         private readonly ShopDbContext data;
-        private readonly IMapper mapper;
 
-        public EmployeeService(ShopDbContext data, IMapper mapper)
+        public EmployeeService(ShopDbContext data)
         {
             this.data = data;
-            this.mapper = mapper;
         }
 
         public int EmployeeId(string userId)

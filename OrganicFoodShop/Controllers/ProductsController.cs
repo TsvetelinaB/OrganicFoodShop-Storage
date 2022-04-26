@@ -1,34 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using OrganicFoodShop.Data;
-using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Infrastructure;
 using OrganicFoodShop.Models.Products;
 using OrganicFoodShop.Services.Employees;
 using OrganicFoodShop.Services.Products;
 using OrganicFoodShop.Services.Products.Models;
 
-using static OrganicFoodShop.Data.DataConstants;
-
 namespace OrganicFoodShop.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ShopDbContext data;
         private readonly IMapper mapper;
         private readonly IProductService products;
         private readonly IEmployeeService employees;
 
-        public ProductsController(ShopDbContext data, IMapper mapper, IProductService products, IEmployeeService employees)
+        public ProductsController(IMapper mapper, IProductService products, IEmployeeService employees)
         {
-            this.data = data;
             this.mapper = mapper;
             this.products = products;
             this.employees = employees;
@@ -79,76 +69,9 @@ namespace OrganicFoodShop.Controllers
 
         public IActionResult All([FromQuery] AllProductsQueryModel query, int category)
         {
-           // var productsQuery = mapper.Map<AllProductsQueryServiceModel>(query);
             var products = this.products.All(query, category);
 
             return View(products);
-
-            //var productsQuery = this.data.Products.AsQueryable();
-
-            //if (category > 0)
-            //{
-            //    productsQuery = productsQuery
-            //        .Where(p =>
-            //        p.Category.Id == category);
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(query.Manufacturer))
-            //{
-            //    if (query.Manufacturer != "Select a Manufacturer")
-            //    {
-            //        productsQuery = productsQuery
-            //            .Where(p =>
-            //            p.Manufacturer == query.Manufacturer);
-            //    }
-            //}
-
-            //if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            //{
-            //    productsQuery = productsQuery
-            //        .Where(p =>
-            //        p.Barcode.ToLower().Contains(query.SearchTerm.ToLower()) ||
-            //        p.Description.ToLower().Contains(query.SearchTerm.ToLower()) ||
-            //        p.Name.ToLower().Contains(query.SearchTerm.ToLower()) ||
-            //        p.Manufacturer.ToLower().Contains(query.SearchTerm.ToLower()));
-            //}
-
-            //productsQuery = query.Sorting switch
-            //{
-            //    ProductSorting.PriceAsc => productsQuery.OrderBy(p => p.PriceSell),
-            //    ProductSorting.PriceDesc => productsQuery.OrderByDescending(p => p.PriceSell),
-            //    ProductSorting.DateCreatedAsc => productsQuery.OrderBy(p => p.Id),
-            //    ProductSorting.DateCreatedDesc or _ => productsQuery.OrderByDescending(p => p.Id)
-            //};
-
-            //var products = productsQuery
-            //    .Skip((query.CurrentPage - 1) * AllProductsQueryModel.ProductsPerPage)
-            //    .Take(AllProductsQueryModel.ProductsPerPage)
-            //    .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
-            //    .ToList();
-
-            //var totalProducts = productsQuery.Count();
-
-            //var productManufacturers = this.data
-            //    .Products
-            //    .Select(p => p.Manufacturer)
-            //    .Distinct()
-            //    .ToList();
-
-            //var productCategories = this.products.AllProductCategories();
-
-            //return View(new AllProductsQueryModel
-            //{
-            //    Products = products,
-            //    Categories = productCategories,
-            //    Manufacturers = productManufacturers,
-            //    TotalProducts = totalProducts,
-            //    SearchTerm = query.SearchTerm,
-            //    Sorting = query.Sorting,
-            //    CurrentPage = query.CurrentPage,
-            //    Category = query.Category,
-            //    Manufacturer = query.Manufacturer
-            //});
         }
     }
 }

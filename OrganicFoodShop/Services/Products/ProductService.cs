@@ -7,11 +7,8 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 
 using OrganicFoodShop.Data;
-using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Models.Products;
 using OrganicFoodShop.Services.Products.Models;
-
-using static OrganicFoodShop.Data.DataConstants;
 
 namespace OrganicFoodShop.Services.Products
 {
