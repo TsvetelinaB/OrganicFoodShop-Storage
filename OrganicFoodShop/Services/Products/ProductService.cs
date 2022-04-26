@@ -23,6 +23,18 @@ namespace OrganicFoodShop.Services.Products
             this.mapper = mapper;
         }
 
+        public IEnumerable<ProductListingViewModel> NewestThreeProducts()
+        {
+            var products = data
+                 .Products
+                 .OrderByDescending(p => p.Id)
+                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
+                 .Take(3)
+                 .ToList();
+
+            return products;
+        }
+
         public AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category)
         {
             var productsQuery = this.data.Products.AsQueryable();

@@ -1,37 +1,21 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
-
-using OrganicFoodShop.Data;
-using OrganicFoodShop.Models.Products;
+using OrganicFoodShop.Services.Products;
 
 namespace OrganicFoodShop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ShopDbContext data;
+        private readonly IProductService products;
        
-        public HomeController(ShopDbContext data)
+        public HomeController(IProductService products)
         {
-            this.data = data;
+            this.products = products;
         }
 
         public IActionResult Index()
         {
-            var products = data
-                 .Products
-                 .OrderByDescending(p => p.Id)
-                 .Select(p => new ProductListingViewModel
-                 {
-                     Id = p.Id,
-                     Name = p.Name,
-                     PriceSell = p.PriceSell,
-                     ImageURL = p.ImageURL
-                 })
-                 .Take(3)
-                 .ToList();
-
-            return View(products);
+            return View(this.products.NewestThreeProducts());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

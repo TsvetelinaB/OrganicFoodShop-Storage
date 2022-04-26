@@ -9,6 +9,8 @@ namespace OrganicFoodShop.Services.Products
 {
     public interface IProductService
     {
+        IEnumerable<ProductListingViewModel> NewestThreeProducts();
+
         AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category);
         
         void Add(AddProductServiceModel product, int employeeId);
