@@ -58,8 +58,9 @@ namespace OrganicFoodShop.Services.Products
             {
                 return false;
             }
+            
+            product.IsDeleted = true; 
 
-            //product.IsDeleted = true; 
             this.data.SaveChanges();
 
             return true;
@@ -142,6 +143,7 @@ namespace OrganicFoodShop.Services.Products
             };
 
             var products = productsQuery
+                .Where(p => p.IsDeleted == false)
                 .Skip((query.CurrentPage - 1) * AllProductsQueryModel.ProductsPerPage)
                 .Take(AllProductsQueryModel.ProductsPerPage)
                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)

@@ -26,7 +26,6 @@ namespace OrganicFoodShop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -173,8 +172,7 @@ namespace OrganicFoodShop.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    DateEmployed = table.Column<int>(type: "int", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -200,6 +198,7 @@ namespace OrganicFoodShop.Data.Migrations
                     PriceSell = table.Column<decimal>(type: "decimal(9,3)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Manufacturer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),

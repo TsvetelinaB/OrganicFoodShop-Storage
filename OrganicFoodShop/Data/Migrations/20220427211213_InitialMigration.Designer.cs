@@ -10,8 +10,8 @@ using OrganicFoodShop.Data;
 namespace OrganicFoodShop.Data.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20220420132845_EmployeeEntityYearRemoved")]
-    partial class EmployeeEntityYearRemoved
+    [Migration("20220427211213_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,6 +291,9 @@ namespace OrganicFoodShop.Data.Migrations
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()

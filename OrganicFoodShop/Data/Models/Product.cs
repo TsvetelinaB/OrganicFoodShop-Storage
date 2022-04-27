@@ -31,7 +31,7 @@ namespace OrganicFoodShop.Data.Models
         [Required]
         public string Manufacturer { get; set; }
 
-        //public bool IsAvalable { get; set; }       
+        public bool IsDeleted { get; set; }       
 
         public int CategoryId { get; set; }
 
