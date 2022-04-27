@@ -8,14 +8,16 @@ using OrganicFoodShop.Services.Products.Models;
 namespace OrganicFoodShop.Services.Products
 {
     public interface IProductService
-    {
+    {     
+        void Add(AddProductServiceModel product, int employeeId);
+
+        bool Edit(AddProductFormModel product, int id);
+
         ProductDetailsViewModel Details(int id);
 
-        IEnumerable<ProductListingViewModel> NewestThreeProducts();
-
         AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category);
-        
-        void Add(AddProductServiceModel product, int employeeId);
+
+        IEnumerable<ProductListingViewModel> NewestThreeProducts();
 
         bool IsValidCategory(int categoryId);
 

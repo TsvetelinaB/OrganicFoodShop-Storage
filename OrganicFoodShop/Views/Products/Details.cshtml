@@ -45,6 +45,9 @@
             <label class=" field col-sm=6" asp-for="Description"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Description">
         </div>
+
+        @*<input type="submit" class="btn btn-secondary float-none" value="Find" />*@
+        <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
     </form>
 </div>
 

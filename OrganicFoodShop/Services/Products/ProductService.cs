@@ -23,6 +23,57 @@ namespace OrganicFoodShop.Services.Products
             this.mapper = mapper;
         }
 
+        public void Add(AddProductServiceModel product, int employeeId)
+        {
+            var newProductData = mapper.Map<Data.Models.Product>(product);
+            newProductData.EmployeeId = employeeId;
+
+            var productExists = this.data.Products.Any(p => p.Barcode == newProductData.Barcode);
+
+            if (!productExists)
+            {
+                this.data.Add(newProductData);
+                this.data.SaveChanges();
+            }
+
+            else
+            {
+                var productInDb = this.data.Products
+                    .Where(p => p.Barcode == newProductData.Barcode)
+                    .FirstOrDefault();
+
+                productInDb.Quantity += newProductData.Quantity;
+
+                this.data.SaveChanges();
+            }
+        }
+
+        public bool Edit(AddProductFormModel product, int id)
+        {
+            var productExists = this.data.Products.Any(p => p.Id == id);
+
+            if (!productExists)
+            {
+                return false;
+            }
+
+            var productInDb = this.data.Products.Find(id);
+
+            productInDb.Name = product.Name;
+            productInDb.Barcode = product.Barcode;
+            productInDb.PriceBuy = product.PriceBuy;
+            productInDb.PriceSell = product.PriceSell;
+            productInDb.CategoryId = product.CategoryId;
+            productInDb.Description = product.Description;
+            productInDb.Manufacturer = product.Manufacturer;
+            productInDb.ImageURL = product.ImageURL;
+            productInDb.Quantity = product.Quantity;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public ProductDetailsViewModel Details(int id)
         {
             var product = this.data
@@ -32,18 +83,6 @@ namespace OrganicFoodShop.Services.Products
                 .FirstOrDefault();
 
             return product;
-        }
-
-        public IEnumerable<ProductListingViewModel> NewestThreeProducts()
-        {
-            var products = data
-                 .Products
-                 .OrderByDescending(p => p.Id)
-                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
-                 .Take(3)
-                 .ToList();
-
-            return products;
         }
 
         public AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category)
@@ -115,29 +154,23 @@ namespace OrganicFoodShop.Services.Products
             };
         }
 
-        public void Add(AddProductServiceModel product, int employeeId)
+        public IEnumerable<ProductListingViewModel> NewestThreeProducts()
         {
-            var newProductData = mapper.Map<Data.Models.Product>(product);
-            newProductData.EmployeeId = employeeId;
+            var products = data
+                 .Products
+                 .OrderByDescending(p => p.Id)
+                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
+                 .Take(3)
+                 .ToList();
 
-            var productExists = this.data.Products.Any(p => p.Barcode == newProductData.Barcode);
+            return products;
+        }
 
-            if (!productExists)
-            {
-                this.data.Add(newProductData);
-                this.data.SaveChanges();
-            }
-
-            else
-            {
-                var productInDb = this.data.Products
-                    .Where(p => p.Barcode == newProductData.Barcode)
-                    .FirstOrDefault();
-
-                productInDb.Quantity += newProductData.Quantity;
-
-                this.data.SaveChanges();
-            }
+        public bool IsValidCategory(int categoryId)
+        {
+            return this.data
+                   .Categories
+                   .Any(c => c.Id == categoryId);
         }
 
         public IEnumerable<ProductCategoryServiceModel> AllProductCategories()
@@ -146,13 +179,6 @@ namespace OrganicFoodShop.Services.Products
                    .Categories
                    .ProjectTo<ProductCategoryServiceModel>(this.mapper.ConfigurationProvider)
                    .ToList();
-        }
-
-        public bool IsValidCategory(int categoryId)
-        {
-            return this.data
-                   .Categories
-                   .Any(c => c.Id == categoryId);
         }
     }
 }

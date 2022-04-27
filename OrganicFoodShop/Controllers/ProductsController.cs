@@ -85,5 +85,54 @@ namespace OrganicFoodShop.Controllers
 
             return this.View(product);
         }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            if (this.employees.EmployeeId(this.User.GetId()) == 0)
+            {
+                return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
+            }
+
+            var product = this.products.Details(id);
+           
+            var productFormData= this.mapper.Map<AddProductFormModel>(product);
+
+            productFormData.Categories = this.products.AllProductCategories();
+
+            return View(productFormData);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, AddProductFormModel product)
+        {
+
+            if (this.employees.EmployeeId(this.User.GetId()) == 0)
+            {
+                return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
+            }
+
+            if (!this.products.IsValidCategory(product.CategoryId))
+            {
+                this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                product.Categories = this.products.AllProductCategories();
+                return this.View(product);
+            }
+
+            var editedProduct = this.products.Edit(product, id);
+
+            if (!editedProduct)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Details",new {id});
+        }
+
     }
 }

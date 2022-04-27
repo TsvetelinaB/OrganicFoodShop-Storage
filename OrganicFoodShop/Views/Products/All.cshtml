@@ -62,6 +62,7 @@
                     <p class="card-subtitle">@Math.Round(product.PriceSell, 2) лв.</p>
                     @*<a href="Details?productId=@product.Id" class="btn btn-primary">View it!</a>*@
                     <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View</a>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary">Edit</a>
                 </div>
             </div>
         </div>
