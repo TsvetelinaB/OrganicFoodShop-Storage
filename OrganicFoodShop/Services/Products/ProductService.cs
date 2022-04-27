@@ -48,6 +48,23 @@ namespace OrganicFoodShop.Services.Products
             }
         }
 
+        public bool Delete(int id)
+        {
+            var product = this.data.Products
+                .Where(p => p.Id == id)
+                .FirstOrDefault();
+
+            if (product == null)
+            {
+                return false;
+            }
+
+            //product.IsDeleted = true; 
+            this.data.SaveChanges();
+
+            return true;
+        }
+
         public bool Edit(AddProductFormModel product, int id)
         {
             var productExists = this.data.Products.Any(p => p.Id == id);

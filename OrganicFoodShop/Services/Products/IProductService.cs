@@ -13,6 +13,8 @@ namespace OrganicFoodShop.Services.Products
 
         bool Edit(AddProductFormModel product, int id);
 
+        bool Delete(int id);
+
         ProductDetailsViewModel Details(int id);
 
         AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category);

@@ -33,7 +33,7 @@ namespace OrganicFoodShop.Controllers
             }
 
             return this.View(new AddProductFormModel
-            {                 
+            {
                 Categories = this.products.AllProductCategories()
             });
         }
@@ -47,7 +47,7 @@ namespace OrganicFoodShop.Controllers
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
 
-            if(!this.products.IsValidCategory(product.CategoryId))
+            if (!this.products.IsValidCategory(product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
             }
@@ -64,7 +64,7 @@ namespace OrganicFoodShop.Controllers
 
             this.products.Add(productData, employeeId);
 
-            return this.RedirectToAction(nameof(All));
+            return View("Added");
         }
 
         public IActionResult All([FromQuery] AllProductsQueryModel query, int category)
@@ -74,11 +74,11 @@ namespace OrganicFoodShop.Controllers
             return this.View(products);
         }
 
-        public IActionResult Details (int id)
+        public IActionResult Details(int id)
         {
             var product = this.products.Details(id);
 
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -95,8 +95,8 @@ namespace OrganicFoodShop.Controllers
             }
 
             var product = this.products.Details(id);
-           
-            var productFormData= this.mapper.Map<AddProductFormModel>(product);
+
+            var productFormData = this.mapper.Map<AddProductFormModel>(product);
 
             productFormData.Categories = this.products.AllProductCategories();
 
@@ -131,8 +131,20 @@ namespace OrganicFoodShop.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction("Details",new {id});
+            // return RedirectToAction("Details",new {id});
+
+            return View("Edited");
         }
 
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            if (!this.products.Delete(id))
+            {
+                return BadRequest();
+            }
+
+            return this.View();
+        }
     }
 }

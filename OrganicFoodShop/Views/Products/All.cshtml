@@ -58,11 +58,11 @@
                 <img class="card-img-top" src="@product.ImageURL" alt="@product.Name" />
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
-                    @*<p class="card-text">Bla bla</p>*@
                     <p class="card-subtitle">@Math.Round(product.PriceSell, 2) лв.</p>
                     @*<a href="Details?productId=@product.Id" class="btn btn-primary">View it!</a>*@
                     <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View</a>
                     <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary">Edit</a>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>
@@ -70,8 +70,8 @@
 </div>
 
 @if (!Model.Products.Any())
- { 
-    <h2 class="text-center">No products found by the given criteria</h2>
+{
+    <h2 class="text-center">No products found by the given criteria!</h2>
 }
 
 @{
