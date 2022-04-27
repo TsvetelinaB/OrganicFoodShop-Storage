@@ -16,10 +16,14 @@ namespace OrganicFoodShop.Infrastructure
 
             this.CreateMap<Category, ProductCategoryServiceModel>();
 
+            this.CreateMap<AddProductServiceModel, Product>();
+
+            this.CreateMap<Product, ProductDetailsViewModel>();
+
             // are they used anywhere?
             // this.CreateMap<AddProductFormModel, Product>();
             // this.CreateMap<Employee, RegisterEmployeeFormModel>();
-            // this.CreateMap<AddProductServiceModel, Product>();
+
 
 
 

@@ -29,10 +29,10 @@ namespace OrganicFoodShop.Controllers
         {
             if (this.employees.EmployeeId(this.User.GetId()) == 0)
             {
-                return RedirectToAction(nameof(EmployeesController.Register), "Employees");
+                return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
 
-            return View(new AddProductFormModel
+            return this.View(new AddProductFormModel
             {                 
                 Categories = this.products.AllProductCategories()
             });
@@ -44,7 +44,7 @@ namespace OrganicFoodShop.Controllers
         {
             if (this.employees.EmployeeId(this.User.GetId()) == 0)
             {
-                return RedirectToAction(nameof(EmployeesController.Register), "Employees");
+                return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
 
             if(!this.products.IsValidCategory(product.CategoryId))
@@ -71,7 +71,19 @@ namespace OrganicFoodShop.Controllers
         {
             var products = this.products.All(query, category);
 
-            return View(products);
+            return this.View(products);
+        }
+
+        public IActionResult Details (int id)
+        {
+            var product = this.products.Details(id);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+
+            return this.View(product);
         }
     }
 }

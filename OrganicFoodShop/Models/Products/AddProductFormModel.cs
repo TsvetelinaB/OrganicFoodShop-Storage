@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using OrganicFoodShop.Services.Products.Models;
 
 using static OrganicFoodShop.Data.DataConstants.Product;
-using static OrganicFoodShop.Models.ErrorMessages;
 using static OrganicFoodShop.Models.DisplayNameConstants;
+using static OrganicFoodShop.Models.ErrorMessages;
 
 namespace OrganicFoodShop.Models.Products
 {

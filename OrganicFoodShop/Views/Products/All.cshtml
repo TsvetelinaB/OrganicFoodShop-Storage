@@ -60,7 +60,8 @@
                     <h5 class="card-title">@product.Name</h5>
                     @*<p class="card-text">Bla bla</p>*@
                     <p class="card-subtitle">@Math.Round(product.PriceSell, 2) лв.</p>
-                    <a href="#" class="btn btn-primary">View it!</a>
+                    @*<a href="Details?productId=@product.Id" class="btn btn-primary">View it!</a>*@
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View</a>
                 </div>
             </div>
         </div>

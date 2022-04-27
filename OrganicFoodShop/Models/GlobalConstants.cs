@@ -4,6 +4,9 @@
     {
         public const int DefaultPageNumber = 1;
 
-        public const int ProductsPerPage = 2;
+        public const int ProductsPerPage = 4;
+
+        public const string DefaultNoImagePath = "~/images/defaultImages/No_image_available.png";
+
     }
 }

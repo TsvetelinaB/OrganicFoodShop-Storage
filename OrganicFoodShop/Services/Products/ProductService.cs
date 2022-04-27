@@ -23,6 +23,17 @@ namespace OrganicFoodShop.Services.Products
             this.mapper = mapper;
         }
 
+        public ProductDetailsViewModel Details(int id)
+        {
+            var product = this.data
+                .Products
+                .Where(p => p.Id == id)
+                .ProjectTo<ProductDetailsViewModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefault();
+
+            return product;
+        }
+
         public IEnumerable<ProductListingViewModel> NewestThreeProducts()
         {
             var products = data
@@ -106,11 +117,27 @@ namespace OrganicFoodShop.Services.Products
 
         public void Add(AddProductServiceModel product, int employeeId)
         {
-            var productData = mapper.Map<Data.Models.Product>(product);
-            productData.EmployeeId = employeeId;
+            var newProductData = mapper.Map<Data.Models.Product>(product);
+            newProductData.EmployeeId = employeeId;
 
-            this.data.Add(productData);
-            this.data.SaveChanges();
+            var productExists = this.data.Products.Any(p => p.Barcode == newProductData.Barcode);
+
+            if (!productExists)
+            {
+                this.data.Add(newProductData);
+                this.data.SaveChanges();
+            }
+
+            else
+            {
+                var productInDb = this.data.Products
+                    .Where(p => p.Barcode == newProductData.Barcode)
+                    .FirstOrDefault();
+
+                productInDb.Quantity += newProductData.Quantity;
+
+                this.data.SaveChanges();
+            }
         }
 
         public IEnumerable<ProductCategoryServiceModel> AllProductCategories()
