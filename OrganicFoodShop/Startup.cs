@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using OrganicFoodShop.Data;
+using OrganicFoodShop.Data.Models;
 using OrganicFoodShop.Infrastructure;
 using OrganicFoodShop.Services.Employees;
 using OrganicFoodShop.Services.Products;
@@ -32,7 +33,7 @@ namespace OrganicFoodShop
             services
                 //.AddDefaultIdentity<User>(options =>
 
-                 .AddDefaultIdentity<IdentityUser>(options =>
+                 .AddDefaultIdentity<User>(options =>
                  {
                         options.Password.RequireDigit = false;
                         options.Password.RequireLowercase = false;

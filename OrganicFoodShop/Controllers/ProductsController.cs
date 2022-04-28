@@ -40,6 +40,7 @@ namespace OrganicFoodShop.Controllers
 
         [HttpPost]
         [Authorize]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Add(AddProductFormModel product)
         {
             if (this.employees.EmployeeId(this.User.GetId()) == 0)
@@ -105,6 +106,7 @@ namespace OrganicFoodShop.Controllers
 
         [HttpPost]
         [Authorize]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Edit(int id, AddProductFormModel product)
         {
 

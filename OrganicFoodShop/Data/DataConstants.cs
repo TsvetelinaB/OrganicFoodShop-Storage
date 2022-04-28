@@ -24,5 +24,12 @@
             public const int YearMinValue = 2010;
             public const int YearMaxValue = 2040;
         }
+
+        public class User
+        {
+            public const int FullNameMaxLength = 40;
+            public const int PasswordMinLength = 6;
+            public const int PasswordMaxLength = 100;
+        }
     }
 }

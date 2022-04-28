@@ -14,5 +14,8 @@
         public const string AllProductsCategory = "Filter";
         public const string AllProductsSearchTerm = "Search";
         public const string AllProductsSorting = "Sort";
+
+        public const string UserFullName = "Full Name";
+        public const string ConfirmPassword = "Confirm Password";
     }
 }

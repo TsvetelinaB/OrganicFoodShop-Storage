@@ -9,5 +9,7 @@
         public const string ValueNotAcceptable = "Value of field '{0}' is not acceptable";
 
         public const string SymbolsMax = "Field '{0}' must be {1} symbols maximum";
+
+        public const string PasswordsDoNotMatch = "The password and confirmation password do not match.";
     }
 }
