@@ -42,7 +42,7 @@ namespace OrganicFoodShop.Data.Models
 
         public string ImageURL { get; set; }
 
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public Employee Employee { get; set; }
     }

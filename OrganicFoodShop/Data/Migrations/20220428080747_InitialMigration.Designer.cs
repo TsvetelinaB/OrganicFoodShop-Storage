@@ -10,7 +10,7 @@ using OrganicFoodShop.Data;
 namespace OrganicFoodShop.Data.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20220427211213_InitialMigration")]
+    [Migration("20220428080747_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,7 +286,7 @@ namespace OrganicFoodShop.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
@@ -393,8 +393,7 @@ namespace OrganicFoodShop.Data.Migrations
                     b.HasOne("OrganicFoodShop.Data.Models.Employee", "Employee")
                         .WithMany("Products")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
 

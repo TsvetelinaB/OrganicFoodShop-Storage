@@ -284,7 +284,7 @@ namespace OrganicFoodShop.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
@@ -391,8 +391,7 @@ namespace OrganicFoodShop.Data.Migrations
                     b.HasOne("OrganicFoodShop.Data.Models.Employee", "Employee")
                         .WithMany("Products")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Category");
 

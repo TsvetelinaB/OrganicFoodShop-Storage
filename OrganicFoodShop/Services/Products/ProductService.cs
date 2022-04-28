@@ -177,6 +177,7 @@ namespace OrganicFoodShop.Services.Products
         {
             var products = data
                  .Products
+                 .Where(p => p.IsDeleted == false)
                  .OrderByDescending(p => p.Id)
                  .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
                  .Take(3)

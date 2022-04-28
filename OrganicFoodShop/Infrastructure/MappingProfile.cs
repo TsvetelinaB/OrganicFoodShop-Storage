@@ -21,14 +21,6 @@ namespace OrganicFoodShop.Infrastructure
             this.CreateMap<Product, ProductDetailsViewModel>();
             
             this.CreateMap<ProductDetailsViewModel, AddProductFormModel>();
-
-            // are they used anywhere?
-            // this.CreateMap<AddProductFormModel, Product>();
-            // this.CreateMap<Employee, RegisterEmployeeFormModel>();
-
-
-
-
         }
     }
 }
