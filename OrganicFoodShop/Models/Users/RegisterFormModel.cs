@@ -9,7 +9,6 @@ namespace OrganicFoodShop.Models.Users
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Field '{0}' is required")]
-        // [StringLength(ProductNameMaxLength, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols", MinimumLength = ProductNameMinLength)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Field '{0}' is required")]

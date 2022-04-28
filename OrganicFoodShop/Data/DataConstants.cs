@@ -17,12 +17,10 @@
 
         public class Employee
         {
-            public const int FullNameMinLength = 5;
-            public const int FullNameMaxLength = 40;
             public const int UsernameMinLength = 3;
             public const int UsernameMaxLength = 20;
-            public const int YearMinValue = 2010;
-            public const int YearMaxValue = 2040;
+            public const int PositionMinLength = 3;
+            public const int PositionMaxLength = 20;
         }
 
         public class User

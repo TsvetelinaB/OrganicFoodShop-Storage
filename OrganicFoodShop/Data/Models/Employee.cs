@@ -10,16 +10,14 @@ namespace OrganicFoodShop.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(FullNameMinLength)]
-        [MaxLength(FullNameMaxLength)]
-        public string FullName { get; set; }
-
-        [Required]
         [MinLength(UsernameMinLength)]
         [MaxLength(UsernameMaxLength)]
         public string Username { get; set; }
 
-        //public int DateEmployed { get; set; }
+        [Required]
+        [MinLength (PositionMinLength)]
+        [MaxLength(PositionMaxLength)]
+        public string Position { get; set; }
 
         [Required]
         public string UserId { get; set; }

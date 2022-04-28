@@ -30,12 +30,12 @@ namespace OrganicFoodShop.Services.Employees
                         .Any(e => e.UserId == userId);
         }
 
-        public void Register (string fullName, string username, string userId)
+        public void Register (string username, string position, string userId)
         {
             var employeeData = new Employee
-            {
-                FullName = fullName,
+            { 
                 Username = username,
+                Position = position,
                 UserId = userId
             };
 

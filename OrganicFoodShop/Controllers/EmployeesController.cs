@@ -44,7 +44,7 @@ namespace OrganicFoodShop.Controllers
                 return View(employee);
             }
 
-            this.employees.Register(employee.FullName, employee.Username, userId);
+            this.employees.Register(employee.Username, employee.Position, userId);
 
             return this.RedirectToAction(nameof(ProductsController.All), "Products");
         }

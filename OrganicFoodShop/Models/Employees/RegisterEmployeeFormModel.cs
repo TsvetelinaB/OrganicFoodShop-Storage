@@ -9,17 +9,11 @@ namespace OrganicFoodShop.Models.Employees
     public class RegisterEmployeeFormModel
     {
         [Required(ErrorMessage = FieldRequired)]
-        [StringLength(FullNameMaxLength, MinimumLength = FullNameMinLength, ErrorMessage = SymbolsCount)]
-        [Display(Name = EmployeeFullName)]
-        public string FullName { get; set; }
-
-
-        [Required(ErrorMessage = FieldRequired)]
         [StringLength(UsernameMaxLength, MinimumLength = UsernameMinLength, ErrorMessage = SymbolsCount)]
         public string Username { get; set; }
 
-        // [Range(YearMinValue, YearMaxValue)]
-        //[Display(Name = "Date Employed")]
-        //public int DateEmployed { get; set; }
+        [Required(ErrorMessage = FieldRequired)]
+        [StringLength(PositionMaxLength, MinimumLength = PositionMinLength, ErrorMessage = SymbolsCount)]
+        public string Position { get; set; }
     }
 }
