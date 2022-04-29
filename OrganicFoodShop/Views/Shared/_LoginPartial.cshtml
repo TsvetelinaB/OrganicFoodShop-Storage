@@ -11,11 +11,12 @@
     {
         var userId = User.GetId();
         var userIsEmployee = Employees.IsEmployee(userId);
+        var userIsAdmin = User.IsInRole(WebConstants.AdministratorRoleName);
 
     <li class="nav-item">
         <a class=" nav-link">Hello, @User.Identity.Name</a>
     </li>
-            @if (!userIsEmployee)
+            @if (!userIsEmployee && !userIsAdmin)
             {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Register">Get Employee Profile</a>

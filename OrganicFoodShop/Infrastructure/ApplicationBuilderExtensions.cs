@@ -1,11 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using OrganicFoodShop.Data;
 using OrganicFoodShop.Data.Models;
+
+using static OrganicFoodShop.WebConstants;
 
 namespace OrganicFoodShop.Infrastructure
 {
@@ -16,19 +21,64 @@ namespace OrganicFoodShop.Infrastructure
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
 
-            var db = serviceScope.ServiceProvider.GetRequiredService<ShopDbContext>();
+            var serviceProvider = serviceScope.ServiceProvider;
 
-            db.Database.Migrate();
+            MigrateDatabase(serviceProvider);
 
-            SeedCategories(db);
+            SeedAdministrator(serviceProvider);
 
-            SeedProducts(db);
+            SeedCategories(serviceProvider);
+
+            SeedProducts(serviceProvider);
 
             return app;
         }
 
-        private static void SeedCategories(ShopDbContext db)
+        private static void MigrateDatabase(IServiceProvider service)
         {
+            var db = service.GetRequiredService<ShopDbContext>();
+
+            db.Database.Migrate();
+        }
+
+        private static void SeedAdministrator( IServiceProvider service)
+        {
+            var userManager = service.GetRequiredService<UserManager<User>>();
+            var roleManager = service.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task.
+                 Run(async () =>
+                 {
+                     if (await roleManager.RoleExistsAsync(AdministratorRoleName))
+                     {
+                         return;
+                     }
+
+                     var role = new IdentityRole { Name = AdministratorRoleName };
+
+                     await roleManager.CreateAsync(role);
+
+                     var admin = new User
+                     {
+                         FullName = "Admin",
+                         Email = "admin@pozdravi.com",
+                         UserName = "admin@pozdravi.com"
+                     };
+
+                     const string adminPassword = "admin123";
+
+                     await userManager.CreateAsync(admin,adminPassword);
+
+                     await userManager.AddToRoleAsync(admin, role.Name);
+                 })
+                 .GetAwaiter()
+                 .GetResult();
+        }
+
+        private static void SeedCategories(IServiceProvider service)
+        {
+            var db = service.GetRequiredService<ShopDbContext>();
+
             if (db.Categories.Any())
             {
                 return;
@@ -51,8 +101,10 @@ namespace OrganicFoodShop.Infrastructure
             db.SaveChanges();
         }
 
-        private static void SeedProducts(ShopDbContext db)
+        private static void SeedProducts(IServiceProvider service)
         {
+            var db = service.GetRequiredService<ShopDbContext>();
+
             if (db.Products.Any())
             {
                 return;
