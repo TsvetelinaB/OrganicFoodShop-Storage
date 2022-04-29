@@ -31,7 +31,6 @@ namespace OrganicFoodShop
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                //.AddDefaultIdentity<User>(options =>
 
                  .AddDefaultIdentity<User>(options =>
                  {

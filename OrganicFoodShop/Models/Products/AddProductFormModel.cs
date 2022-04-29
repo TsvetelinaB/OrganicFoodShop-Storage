@@ -37,8 +37,6 @@ namespace OrganicFoodShop.Models.Products
 
         [Required(ErrorMessage = FieldRequired)]
         public string Manufacturer { get; set; }
-
-        // public bool IsAvalable { get; set; }
        
         [Required(ErrorMessage = FieldRequired)]
         [Display(Name = ProductCategory)]

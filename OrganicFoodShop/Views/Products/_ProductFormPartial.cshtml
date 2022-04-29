@@ -57,7 +57,7 @@
                     <input asp-for="ImageURL" class="form-control">
                 </div>
                 @{ 
-                    var buttonValue = (@ViewData["Title"] == "Edit Product") ? "Save edit" : "Add";
+                    var buttonValue = ((string)@ViewData["Title"] == "Edit Product") ? "Save edit" : "Add";
                 }
 
                 <input class="btn btn-secondary float-none" type="submit" value="@buttonValue" />

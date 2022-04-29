@@ -27,7 +27,7 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if (this.employees.EmployeeId(this.User.GetId()) == 0)
+            if (!this.employees.IsEmployee(this.User.GetId()))
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -43,7 +43,7 @@ namespace OrganicFoodShop.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Add(AddProductFormModel product)
         {
-            if (this.employees.EmployeeId(this.User.GetId()) == 0)
+            if (!this.employees.IsEmployee(this.User.GetId()))
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -90,7 +90,7 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Edit(int id)
         {
-            if (this.employees.EmployeeId(this.User.GetId()) == 0)
+            if (!this.employees.IsEmployee(this.User.GetId()))
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -110,7 +110,7 @@ namespace OrganicFoodShop.Controllers
         public IActionResult Edit(int id, AddProductFormModel product)
         {
 
-            if (this.employees.EmployeeId(this.User.GetId()) == 0)
+            if (!this.employees.IsEmployee(this.User.GetId()))
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -132,8 +132,6 @@ namespace OrganicFoodShop.Controllers
             {
                 return BadRequest();
             }
-
-            // return RedirectToAction("Details",new {id});
 
             return View("Edited");
         }

@@ -2,7 +2,6 @@
 
 using static OrganicFoodShop.Data.DataConstants.Employee;
 using static OrganicFoodShop.Models.ErrorMessages;
-using static OrganicFoodShop.Models.DisplayNameConstants;
 
 namespace OrganicFoodShop.Models.Employees
 {

@@ -9,44 +9,35 @@
     <img class="" src="@Model.ImageURL" alt="@Model.Name" />
     <h4 class="heading-margin">@ViewData["Title"]</h4>
     <h2 class="heading-margin text-center"> </h2>
-
     <form>
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="Name"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Name">
         </div>
-
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="Barcode"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Barcode">
         </div>
-
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="PriceBuy"></label>
             <input class="col-lg-7" type="text" readonly="" value="@Math.Round(Model.PriceBuy, 2) лв.">
         </div>
-
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="PriceSell"></label>
             <input class="col-lg-7" type="text" readonly="" value="@Math.Round(Model.PriceSell, 2) лв.">
         </div>
-
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="Quantity"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Quantity">
         </div>
-
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="Manufacturer"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Manufacturer">
         </div>
-
         <div class="field quarter">
             <label class=" field col-sm=6" asp-for="Description"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Description">
         </div>
-
-        @*<input type="submit" class="btn btn-secondary float-none" value="Find" />*@
         <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
     </form>
 </div>

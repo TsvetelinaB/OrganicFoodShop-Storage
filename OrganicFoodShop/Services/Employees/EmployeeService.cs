@@ -47,6 +47,5 @@ namespace OrganicFoodShop.Services.Employees
         {
             return this.data.Users.Count();
         }
-
     }
 }

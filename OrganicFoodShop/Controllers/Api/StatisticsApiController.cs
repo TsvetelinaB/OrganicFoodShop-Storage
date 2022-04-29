@@ -3,7 +3,6 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-using OrganicFoodShop.Data;
 using OrganicFoodShop.Models.Api;
 using OrganicFoodShop.Services.Employees;
 using OrganicFoodShop.Services.Products;
@@ -14,7 +13,6 @@ namespace OrganicFoodShop.Controllers.Api
     [Route("api/statistics")]
     public class StatisticsApiController : ControllerBase
     {
-       // private readonly ShopDbContext data;
         private readonly IProductService products;
         private readonly IEmployeeService employees;
 
@@ -29,12 +27,12 @@ namespace OrganicFoodShop.Controllers.Api
         public StatisticsResponseModel Statistics()
         {
             var totalProducts = this.products.AllApiProducts().Count();
-            var totalUsers = this.employees.EmployeeCount();
+            var totalEmployees = this.employees.EmployeeCount();
 
             var statistics = new StatisticsResponseModel
             {
                 TotalProducts = totalProducts,
-                TotalUsers = totalUsers
+                TotalEmployees = totalEmployees
             };
 
             return statistics;

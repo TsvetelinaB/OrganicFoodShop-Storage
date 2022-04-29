@@ -8,10 +8,8 @@
     <h1 class="display-5 ">Welcome to "PoZdravi"!</h1>
     <p class="lead"> Enjoy healthy and organic food!</p>
 </div>
-
 <div class="jumbotron col-lg-10 col-md-10 align-content-center">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-
         <div class="carousel-inner align-content-lg-center">
 
             @for (int i = 0; i < Model.Count; i++)
@@ -36,17 +34,15 @@
         </a>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-10 text-center align-content-md-center">
         <button class="btn btn-outline-info" id="statistics-button">Show Statistics</button>
     </div>
 </div>
-
 <div class="jumbotron col-md-10 align-content-md-center d-none" id="statistics">
     <div class="row">
         <h2 class="col-md-4 text-center" id="total-products"></h2>
-        <h2 class="col-md-4 text-center" id="total-users"></h2>
+        <h2 class="col-md-4 text-center" id="total-employees"></h2>
     </div>
 </div>
 
@@ -55,7 +51,7 @@
         $('#statistics-button').on('click', ev => {
             $.get('api/statistics', (data) => {
                 $('#total-products').text(data.totalProducts + " products");
-                $('#total-users').text(data.totalUsers + " users");
+                $('#total-employees').text(data.totalEmployees + " employees");
 
                 $('#statistics').removeClass('d-none');
                 $('#statistics-button').hide();
