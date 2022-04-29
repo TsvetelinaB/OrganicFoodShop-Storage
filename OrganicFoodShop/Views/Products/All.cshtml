@@ -1,4 +1,12 @@
-﻿@model AllProductsQueryModel
+﻿@using Microsoft.AspNetCore.Identity
+@using OrganicFoodShop.Data.Models
+@using OrganicFoodShop.Services.Employees
+
+@model AllProductsQueryModel
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IEmployeeService Employees
 
 @{
     ViewData["Title"] = "All Products";
@@ -59,10 +67,23 @@
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-subtitle">@Math.Round(product.PriceSell, 2) лв.</p>
-                    @*<a href="Details?productId=@product.Id" class="btn btn-primary">View it!</a>*@
                     <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">View</a>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary">Edit</a>
-                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var userId = User.GetId();
+                        var userIsEmployee = Employees.IsEmployee(userId);
+                        var userIsAdmin = User.IsAdmin();
+
+                        if (userIsEmployee || userIsAdmin)
+                        {
+                            <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-secondary">Edit</a>
+                        }
+
+                        if (userIsAdmin)
+                        {
+                            <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
+                        }
+                    }
                 </div>
             </div>
         </div>

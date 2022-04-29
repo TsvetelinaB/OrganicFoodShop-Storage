@@ -9,6 +9,8 @@ using OrganicFoodShop.Services.Employees;
 using OrganicFoodShop.Services.Products;
 using OrganicFoodShop.Services.Products.Models;
 
+using static OrganicFoodShop.WebConstants;
+
 namespace OrganicFoodShop.Controllers
 {
     public class ProductsController : Controller
@@ -27,7 +29,7 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.employees.IsEmployee(this.User.GetId()))
+            if (!this.employees.IsEmployee(this.User.GetId()) && !this.User.IsAdmin())
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -43,7 +45,7 @@ namespace OrganicFoodShop.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Add(AddProductFormModel product)
         {
-            if (!this.employees.IsEmployee(this.User.GetId()))
+            if (!this.employees.IsEmployee(this.User.GetId()) && !this.User.IsAdmin())
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -61,7 +63,12 @@ namespace OrganicFoodShop.Controllers
 
             var productData = mapper.Map<AddProductServiceModel>(product);
 
-            var employeeId = this.employees.EmployeeId(this.User.GetId());
+            var employeeId = 1;
+
+            if (this.employees.IsEmployee(this.User.GetId()))
+            {
+                employeeId = this.employees.EmployeeId(this.User.GetId());
+            }
 
             this.products.Add(productData, employeeId);
 
@@ -90,7 +97,7 @@ namespace OrganicFoodShop.Controllers
         [Authorize]
         public IActionResult Edit(int id)
         {
-            if (!this.employees.IsEmployee(this.User.GetId()))
+            if (!this.employees.IsEmployee(this.User.GetId()) && !this.User.IsAdmin())
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -110,7 +117,7 @@ namespace OrganicFoodShop.Controllers
         public IActionResult Edit(int id, AddProductFormModel product)
         {
 
-            if (!this.employees.IsEmployee(this.User.GetId()))
+            if (!this.employees.IsEmployee(this.User.GetId()) && !this.User.IsAdmin())
             {
                 return this.RedirectToAction(nameof(EmployeesController.Register), "Employees");
             }
@@ -136,7 +143,7 @@ namespace OrganicFoodShop.Controllers
             return View("Edited");
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult Delete(int id)
         {
             if (!this.products.Delete(id))

@@ -56,7 +56,7 @@
                     <label asp-for="ImageURL"></label>
                     <input asp-for="ImageURL" class="form-control">
                 </div>
-                @{ 
+                @{
                     var buttonValue = ((string)@ViewData["Title"] == "Edit Product") ? "Save edit" : "Add";
                 }
 
@@ -65,3 +65,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

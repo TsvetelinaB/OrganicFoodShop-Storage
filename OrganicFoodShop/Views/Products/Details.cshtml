@@ -1,4 +1,13 @@
-﻿@model ProductDetailsViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using OrganicFoodShop.Data.Models
+@using OrganicFoodShop.Services.Employees
+
+@model ProductDetailsViewModel
+
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IEmployeeService Employees
 
 @{
     ViewData["Title"] = "Product Details";
@@ -38,7 +47,17 @@
             <label class=" field col-sm=6" asp-for="Description"></label>
             <input class="col-lg-7" type="text" readonly="" asp-for="Description">
         </div>
-        <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-    </form>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var userId = User.GetId();
+            var userIsEmployee = Employees.IsEmployee(userId);
+            var userIsAdmin = User.IsAdmin();
+
+            if (userIsEmployee || userIsAdmin)
+            {
+                <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            }
+        }
+            </form>
 </div>
 

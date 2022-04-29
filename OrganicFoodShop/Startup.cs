@@ -31,7 +31,6 @@ namespace OrganicFoodShop
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-
                  .AddDefaultIdentity<User>(options =>
                  {
                         options.Password.RequireDigit = false;
@@ -51,7 +50,6 @@ namespace OrganicFoodShop
 
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
