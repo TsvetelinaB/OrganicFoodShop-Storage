@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 
-using OrganicFoodShop.Data;
-using OrganicFoodShop.Data.Models;
+using OrganicFoodShop.Models.Products;
+using OrganicFoodShop.Services.Products;
 
 namespace OrganicFoodShop.Controllers.Api
 {
@@ -12,38 +11,38 @@ namespace OrganicFoodShop.Controllers.Api
     [Route("api/products")]
     public class ProductsApiController : ControllerBase
     {
-        private readonly ShopDbContext data;
+        private readonly IProductService products;
 
-        public ProductsApiController(ShopDbContext data)
+        public ProductsApiController(IProductService products)
         {
-            this.data = data;
+            this.products = products;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> AllProducts()
+        public ActionResult<IEnumerable<ProductDetailsViewModel>> AllProducts()
         {
-            var products = this.data.Products.ToList();
+            var allPproducts = this.products.AllApiProducts();
 
-            if(!products.Any())
+            if (allPproducts == null)
             {
                 return NotFound();
             }
 
-            return Ok(products);
+            return Ok(allPproducts);
         }
 
         [HttpGet]
         [Route("{id}")]
         public IActionResult Details(int id)
         {
-            var product = this.data.Products.Find(id);
+            var productData = this.products.Details(id);
 
-            if (product == null)
+            if (productData == null)
             {
                 return NotFound();
             }
 
-            return Ok(product);
+            return Ok(productData);
         }
     }
 }

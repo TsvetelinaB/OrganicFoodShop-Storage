@@ -19,6 +19,8 @@ namespace OrganicFoodShop.Services.Products
 
         AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category);
 
+        IEnumerable<ProductDetailsViewModel> AllApiProducts();
+
         IEnumerable<ProductListingViewModel> NewestThreeProducts();
 
         bool IsValidCategory(int categoryId);

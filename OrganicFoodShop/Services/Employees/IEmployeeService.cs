@@ -7,5 +7,7 @@
         bool IsEmployee(string userId);
 
         void Register(string username, string position, string userId);
+
+        int EmployeeCount();
     }
 }

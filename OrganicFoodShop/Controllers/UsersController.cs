@@ -56,7 +56,8 @@ namespace OrganicFoodShop.Controllers
     //        //    {
     //        //        ModelState.AddModelError(string.Empty, error);
     //        //    }
-
+    //za da se vizualizirat, v register formata trqbva da kajem 
+   // asp-validation-summary="ModelOnly"
     //        //    return View(user);
     //        //}
 

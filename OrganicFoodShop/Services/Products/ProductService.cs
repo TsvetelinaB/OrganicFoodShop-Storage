@@ -101,7 +101,7 @@ namespace OrganicFoodShop.Services.Products
                 .FirstOrDefault();
 
             return product;
-        }
+        }       
 
         public AllProductsQueryModel All([FromQuery] AllProductsQueryModel query, int category)
         {
@@ -171,6 +171,15 @@ namespace OrganicFoodShop.Services.Products
                 Category = query.Category,
                 Manufacturer = query.Manufacturer
             };
+        }
+
+        public IEnumerable<ProductDetailsViewModel> AllApiProducts()
+        {
+            var allProducts = this.data.Products
+                .ProjectTo<ProductDetailsViewModel>(this.mapper.ConfigurationProvider)
+                .ToList();
+
+            return allProducts;
         }
 
         public IEnumerable<ProductListingViewModel> NewestThreeProducts()
