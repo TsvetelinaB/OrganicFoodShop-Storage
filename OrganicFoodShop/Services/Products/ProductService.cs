@@ -149,7 +149,9 @@ namespace OrganicFoodShop.Services.Products
                 .ProjectTo<ProductListingViewModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
-            var totalProducts = productsQuery.Count();
+            var totalProducts = productsQuery
+                .Where (p => p.IsDeleted == false)
+                .Count();
 
             var productManufacturers = this.data
                 .Products
