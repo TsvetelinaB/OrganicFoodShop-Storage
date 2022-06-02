@@ -2,7 +2,7 @@
 ASP.NET Core project for educational purposes
 
 ## A web platform with basic storage features of an online organic store.
-Customer-related features (buying products, wishlists, etc.) will be developed as well.
+Customer-related features (buying products, wishlists, etc.) will be additionally developed.
 
 ### Roles and respective functions:
 >- Admin (seeded upon starting the app) – add, view, edit and delete products
@@ -18,5 +18,5 @@ Customer-related features (buying products, wishlists, etc.) will be developed a
 >- ASP.NET Core
 >- Entity Framework Core
 
-#### Used in the process:
+#### Used during the process:
 >- MSSQL Server
